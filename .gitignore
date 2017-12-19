@@ -1,0 +1,18 @@
+# bundler config
+/.bundle
+/vendor/bundle
+
+# logfiles and tempfiles
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# config for 'dotenv-rails' gem
+.env
+
+# macOS
+.DS_Store
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
