@@ -1,0 +1,21 @@
+language: ruby
+rvm:
+  - 2.5.0-rc1
+sudo: required
+dist: trusty
+services:
+  - docker
+env:
+  global:
+  - RAILS_ENV: test
+cache: bundler
+bundler_args: --without production --deployment --path=vendor/bundler
+before_install:
+  - sudo service mysql stop
+    && $TRAVIS_BUILD_DIR/scripts/travis_start_containers.sh
+    && $TRAVIS_BUILD_DIR/scripts/travis_wait_containers.sh mysql
+    && ln -s /var/run/mysqld/mysqld.sock "${DATABASE_SOCKET:-/tmp/mysql.sock}"
+script:
+  - bin/rails db:drop db:create db:migrate
+  - bundle exec rubocop
+  - bundle exec rspec
