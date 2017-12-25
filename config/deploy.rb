@@ -42,4 +42,11 @@ set :deploy_to, '/var/www/serious-lunch'
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
 
+# Set value of capistrano-rbenv
+set :rbenv_type, :system
+set :rbenv_path, '~/.rbenv/version'
+set :rbenv_ruby, File.read('.ruby-version').strip
+set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
+set :rbenv_map_bins, %w[rake gem bundle ruby rails]
+
 # rubocop:enable Metrics/LineLength
