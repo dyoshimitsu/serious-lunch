@@ -50,5 +50,3 @@ test:
 production:
   <<: *default
   database: serious-lunch_production
-  username: serious-lunch
-  password: <%= ENV['SERIOUS-LUNCH_DATABASE_PASSWORD'] %>
