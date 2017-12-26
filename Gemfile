@@ -60,6 +60,7 @@ group :development do
   # Use Capistrano for deployment
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
+  gem 'capistrano3-puma'
 end
 
 group :test do
