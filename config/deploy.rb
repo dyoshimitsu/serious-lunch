@@ -12,7 +12,7 @@ set :repo_url, 'git@github.com:dyoshimitsu/serious-lunch.git'
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, '/var/www/serious-lunch'
+set :deploy_to, '/var/app/serious-lunch'
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
