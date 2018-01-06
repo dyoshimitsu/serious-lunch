@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class V1::HelloController < ApplicationController
+class HelloController < ApplicationController
 
   def show
     render html: 'hello, world!'
