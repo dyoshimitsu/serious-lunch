@@ -23,5 +23,6 @@ script:
   - bundle exec rspec
 after_success:
   - bundle exec cap production deploy
-  on:
-    branch: [master, develop]
+  branches:
+    only:
+    - master
