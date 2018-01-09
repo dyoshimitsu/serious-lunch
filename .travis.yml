@@ -21,8 +21,8 @@ script:
   - bundle exec rubocop
   - bin/rails db:drop db:create db:migrate
   - bundle exec rspec
-after_success:
-  - bundle exec cap production deploy
-  branches:
-    only:
-    - master
+deploy:
+- provider: script
+  script: $TRAVIS_BUILD_DIR/scripts/travis_production_deploy.sh
+  on:
+    branch: [master]
