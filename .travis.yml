@@ -21,9 +21,5 @@ script:
   - bundle exec rubocop
   - bin/rails db:drop db:create db:migrate
   - bundle exec rspec
-deploy:
-- provider: script
-  skip_cleanup: true
-  script: $TRAVIS_BUILD_DIR/scripts/travis_production_deploy.sh
-  on:
-    branch: [master, develop]
+after_success:
+- $TRAVIS_BUILD_DIR/scripts/travis_production_deploy.sh

@@ -1,4 +1,5 @@
 #!/bin/sh
 
-bundle exec rails db:migrate:status
-bundle exec cap production deploy
+if [ "$TRAVIS_BRANCH" == "prod" ]; then
+  bundle exec cap production deploy
+fi
