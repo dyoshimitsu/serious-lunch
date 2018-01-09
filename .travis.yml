@@ -23,7 +23,7 @@ script:
   - bundle exec rspec
 deploy:
 - provider: script
-  skip_cleanup: false
+  skip_cleanup: true
   script: $TRAVIS_BUILD_DIR/scripts/travis_production_deploy.sh
   on:
     branch: [master, develop]
