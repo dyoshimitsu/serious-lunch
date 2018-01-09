@@ -1,4 +1,3 @@
 #!/bin/sh
 
-# bundle exec cap production deploy
-pwd
+bundle exec cap production deploy
