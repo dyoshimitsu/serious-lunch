@@ -25,4 +25,4 @@ deploy:
 - provider: script
   script: $TRAVIS_BUILD_DIR/scripts/travis_production_deploy.sh
   on:
-    branch: [master]
+    branch: [master, develop]
