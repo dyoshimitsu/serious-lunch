@@ -22,4 +22,4 @@ script:
   - bin/rails db:drop db:create db:migrate
   - bundle exec rspec
 after_success:
-- $TRAVIS_BUILD_DIR/scripts/travis_production_deploy.sh
+  - $TRAVIS_BUILD_DIR/scripts/travis_production_deploy.sh
