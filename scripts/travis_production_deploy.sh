@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-echo $TRAVIS_BRANCH
-if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_BRANCH" == "develop" ]; then
-  echo "true"
+if [ "$TRAVIS_BRANCH" == "master" ] || [ "$TRAVIS_BRANCH" == "develop" ]; then
   bundle exec cap production deploy
 fi
