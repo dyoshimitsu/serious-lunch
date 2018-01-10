@@ -61,12 +61,4 @@ set :puma_preload_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true
 
-namespace :deploy do
-  task :failed do
-    run 'exit 1'
-  end
-end
-
-after 'deploy:failed', 'deploy:failed'
-
 # rubocop:enable Metrics/LineLength
