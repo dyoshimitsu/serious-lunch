@@ -2,8 +2,6 @@
 
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-
 if [ -z "$1" ]; then
     echo 'You must specify the container id'
     exit 1
