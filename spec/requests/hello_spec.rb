@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe '/hello', :type => :request do
-  let(:json) { JSON.parse response.body }
 
   describe 'GET /hello' do
     before { get '/hello' }
