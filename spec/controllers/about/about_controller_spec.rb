@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe HomeController, :type => :controller do
+RSpec.describe AboutController, :type => :controller do
 
   describe 'GET #show' do
     before { get :show }
