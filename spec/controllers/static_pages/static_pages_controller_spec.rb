@@ -16,12 +16,6 @@ RSpec.describe StaticPagesController, :type => :controller do
     it { expect(response).to have_http_status(200) }
   end
 
-  describe 'GET #signup' do
-    before { get :signup }
-
-    it { expect(response).to have_http_status(200) }
-  end
-
   describe 'GET #hello' do
     before { get :hello }
 
