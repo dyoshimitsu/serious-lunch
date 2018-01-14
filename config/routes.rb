@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   root controller: :static_pages, action: :home
   resource :home, only: [:show], controller: :static_pages, action: :home
   resource :about, only: [:show], controller: :static_pages, action: :about
-  resource :signup, only: [:show], controller: :static_pages, action: :signup
+
+  resource :signup, only: [:show], controller: :accounts, action: :new
 
   resource :hello, only: [:show], controller: :static_pages, action: :hello
 end
