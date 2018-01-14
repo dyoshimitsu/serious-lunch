@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class HelloController < ApplicationController
+class StaticPagesController < ApplicationController
 
-  def show
+  def hello
     render html: 'hello, world!'
   end
 end
