@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   root controller: :home, action: :show
   resource :home, only: [:show], controller: 'home'
   resource :about, only: [:show], controller: 'about'
+  resource :signup, only: [:show], controller: 'signup'
 
   resource :hello, only: [:show], controller: 'hello'
 end
