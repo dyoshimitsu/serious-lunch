@@ -66,12 +66,5 @@ RSpec.describe Account, type: :model do
 
       it { expect(validation).not_to be_valid }
     end
-
-    context 'when password is empty' do
-      let(:password) { ' ' * 8 }
-
-      it { expect(validation).not_to be_valid }
-    end
-
   end
 end
