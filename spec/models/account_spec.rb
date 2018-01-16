@@ -47,4 +47,31 @@ RSpec.describe Account, type: :model do
       it { expect(validation).not_to be_valid }
     end
   end
+
+  describe 'validation of password' do
+    let(:validation) do
+      account = FactoryBot.create :account
+      account.password = password
+      account
+    end
+
+    context 'When password is larger than minimum length' do
+      let(:password) { 'a' * 8 }
+
+      it { expect(validation).to be_valid }
+    end
+
+    context 'when password is minimum length' do
+      let(:password) { 'a' * 7 }
+
+      it { expect(validation).not_to be_valid }
+    end
+
+    context 'when password is empty' do
+      let(:password) { ' ' * 8 }
+
+      it { expect(validation).not_to be_valid }
+    end
+
+  end
 end

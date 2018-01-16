@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 2018_01_15_110550) do
   create_table "accounts", primary_key: "account_id", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "account_name", limit: 50, null: false
     t.string "email", null: false
+    t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_name"], name: "index_accounts_on_account_name", unique: true
