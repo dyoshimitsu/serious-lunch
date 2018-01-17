@@ -9,6 +9,6 @@ Rails.application.routes.draw do
   resource :about, only: [:show], controller: :static_pages, action: :about
 
   resource :signup, only: [:show], controller: :accounts, action: :new
-  resources :account, only: [:show], param: :account_name
+  resources :accounts, only: [:show], param: :account_name
   get '/:account_name', controller: :accounts, action: :show
 end
