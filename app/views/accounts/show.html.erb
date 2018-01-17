@@ -1,0 +1,11 @@
+<% provide(:title, @account.account_name) %>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="account_info">
+      <h1>
+        <%= gravatar_for @account %>
+        <%= @account.account_name %>
+      </h1>
+    </section>
+  </aside>
+</div>
