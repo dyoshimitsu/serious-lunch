@@ -46,6 +46,12 @@ RSpec.describe Account, type: :model do
 
       it { expect(validation).not_to be_valid }
     end
+
+    context 'when account_name is reserved' do
+      let(:account_name) { 'about' }
+
+      it { expect(validation).not_to be_valid }
+    end
   end
 
   describe 'validation of password' do
