@@ -46,6 +46,7 @@ class Validators::NonAccountNameValidator < ActiveModel::Validator
     login
     logo
     logout
+    lunch
     me
     mentions
     messages
@@ -62,6 +63,8 @@ class Validators::NonAccountNameValidator < ActiveModel::Validator
     saved_searches
     search
     sent
+    serious
+    serious_lunch
     sessions
     settings
     share
