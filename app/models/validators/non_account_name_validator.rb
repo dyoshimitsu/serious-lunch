@@ -46,6 +46,7 @@ class Validators::NonAccountNameValidator < ActiveModel::Validator
     login
     logo
     logout
+    lunch
     me
     mentions
     messages
@@ -62,6 +63,8 @@ class Validators::NonAccountNameValidator < ActiveModel::Validator
     saved_searches
     search
     sent
+    serious
+    serious_lunch
     sessions
     settings
     share
@@ -83,7 +86,7 @@ class Validators::NonAccountNameValidator < ActiveModel::Validator
   ].freeze
 
   def validate(record)
-    return unless NON_ACCOUNT_NAME.include?(record.account_name)
+    return unless NON_ACCOUNT_NAME.include?(record.account_name.downcase)
     record.errors[:base] << 'That name is reserved and can not be used'
   end
 end
