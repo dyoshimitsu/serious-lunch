@@ -13,7 +13,7 @@ class AccountsController < ApplicationController
   def create
     @account = Account.new(account_params)
     if @account.save
-      # 保存の成功をここで扱う。
+      redirect_to account_url(@account.account_name)
     else
       render 'new'
     end
