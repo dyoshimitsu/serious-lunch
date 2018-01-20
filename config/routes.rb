@@ -11,4 +11,7 @@ Rails.application.routes.draw do
   resource :signup, only: [:new, :create], controller: :accounts
   resources :accounts, only: [:show], param: :account_name
   get '/:account_name', controller: :accounts, action: :show
+
+  resource :login, only: [:new, :create], controller: :sessions
+  resource :logout, only: [:destroy], controller: :sessions
 end
