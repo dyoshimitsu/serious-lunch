@@ -15,6 +15,6 @@ Rails.application.routes.draw do
   post '/login', controller: :sessions, action: :create
   delete '/logout', controller: :sessions, action: :destroy
 
-  get '/accounts/:account_name', controller: :accounts, action: :show, to: redirect('/%{account_name}')
+  get '/accounts/:account_name', controller: :accounts, action: :show, to: redirect('/%{account_name}'), as: :account
   get '/:account_name', controller: :accounts, action: :show
 end
