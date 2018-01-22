@@ -69,6 +69,3 @@ Style/PercentLiteralDelimiters:
 
 Style/EmptyElse:
   EnforcedStyle: empty
-
-Style/FormatStringToken:
-  Enabled: false
