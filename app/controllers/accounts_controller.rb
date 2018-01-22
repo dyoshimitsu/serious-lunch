@@ -13,6 +13,7 @@ class AccountsController < ApplicationController
   def create
     @account = Account.new(account_params)
     if @account.save
+      log_in @account
       flash[:success] = 'Welcome to the Serious Lunch!'
       redirect_to account_url(@account.account_name)
     else
