@@ -53,4 +53,13 @@ RSpec.describe SessionsController, :type => :controller do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    before { delete :destroy }
+
+    it 'success in logout' do
+      expect(response).to have_http_status(302)
+      expect(response).to redirect_to(root_url)
+    end
+  end
 end
