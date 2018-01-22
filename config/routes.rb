@@ -9,11 +9,11 @@ Rails.application.routes.draw do
   resource :about, only: [:show], controller: :static_pages, action: :about
 
   get '/signup', controller: :accounts, action: :new
-  get '/signup', controller: :accounts, action: :create
+  post '/signup', controller: :accounts, action: :create
 
   get '/login', controller: :sessions, action: :new
-  get '/login', controller: :sessions, action: :create
-  get '/logout', controller: :sessions, action: :destroy
+  post '/login', controller: :sessions, action: :create
+  delete '/logout', controller: :sessions, action: :destroy
 
   resources :accounts, only: [:show], param: :account_name
   get '/:account_name', controller: :accounts, action: :show
