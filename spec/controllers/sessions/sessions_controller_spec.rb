@@ -30,6 +30,7 @@ RSpec.describe SessionsController, :type => :controller do
     context 'when parameter is valid' do
       it 'success in login' do
         expect(response).to have_http_status(302)
+        expect(response).to redirect_to(account_url(account.account_name))
         expect(flash[:danger]).to be_nil
       end
     end
