@@ -9,4 +9,8 @@ module SessionsHelper
   def current_account
     @current_account ||= Account.find_by(account_id: session[:account_id])
   end
+
+  def logged_in?
+    !current_account.nil?
+  end
 end
