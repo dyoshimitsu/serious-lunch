@@ -6,15 +6,36 @@ module SessionsHelper
     session[:account_id] = account.account_id
   end
 
+  def remember(account)
+    account.remember
+    cookies.permanent.signed[:account_id] = account.account_id
+    cookies.permanent[:remember_token] = account.remember_token
+  end
+
   def current_account
-    @current_account ||= Account.find_by(account_id: session[:account_id])
+    if (account_id = session[:account_id])
+      @current_account ||= Account.find_by(account_id: account_id)
+    elsif (account_id = cookies.signed[:account_id])
+      account = Account.find_by(account_id: account_id)
+      if account&.authenticated?(cookies[:remember_token])
+        log_in user
+        @current_account = account
+      end
+    end
   end
 
   def logged_in?
     !current_account.nil?
   end
 
+  def forget(account)
+    account.forget
+    cookies.delete(:account_id)
+    cookies.delete(:remember_token)
+  end
+
   def log_out
+    forget(current_account)
     session.delete(:account_id)
     @current_account = nil
   end
