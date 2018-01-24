@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     account = Account.find_by(email: params[:session][:email].downcase)
     if account&.authenticate(params[:session][:password])
       log_in account
-      remember_me(params)
+      remember_me(params, account)
       remember account
       redirect_to account_url(account.account_name)
     else
@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
 
   private
 
-  def remember_me(params)
+  def remember_me(params, account)
     if params[:session][:remember_me] == '1'
       remember(account)
     else
