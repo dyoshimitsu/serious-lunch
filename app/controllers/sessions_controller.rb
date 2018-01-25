@@ -7,7 +7,6 @@ class SessionsController < ApplicationController
     if account&.authenticate(params[:session][:password])
       log_in account
       remember_me(params, account)
-      remember account
       redirect_to account_url(account.account_name)
     else
       flash.now[:danger] = 'Invalid email/password combination'
