@@ -18,8 +18,8 @@ Rails.application.routes.draw do
   delete '/logout', controller: :sessions, action: :destroy
 
   get '/accounts/:account_name', controller: :accounts, action: :show,
-                                 to: redirect('/%{account_name}'), as: :account
-  get '/:account_name', controller: :accounts, action: :show
+                                 to: redirect('/%{account_name}')
+  get '/:account_name', controller: :accounts, action: :show, as: :short_account
 end
 
 # rubocop:enable Style/FormatStringToken
