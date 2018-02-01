@@ -21,6 +21,16 @@ class AccountsController < ApplicationController
     end
   end
 
+  def update
+    @account = Account.find(params[:id])
+    if @account.update_attributes(account_params)
+      flash[:success] = 'Profile updated'
+      redirect_to @account
+    else
+      render 'edit'
+    end
+  end
+
   def edit
     @account = Account.find_by(account_name: params[:account_name])
   end
