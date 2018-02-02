@@ -15,7 +15,7 @@ class AccountsController < ApplicationController
     if @account.save
       log_in @account
       flash[:success] = 'Welcome to the Serious Lunch!'
-      redirect_to account_url(@account.account_name)
+      redirect_to short_account_url(@account.account_name)
     else
       render 'new'
     end

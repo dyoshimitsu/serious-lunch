@@ -20,8 +20,8 @@ Rails.application.routes.draw do
   resources :accounts, only: [:edit], param: :account_name
 
   get '/accounts/:account_name', controller: :accounts, action: :show,
-                                 to: redirect('/%{account_name}'), as: :account
-  get '/:account_name', controller: :accounts, action: :show
+                                 to: redirect('/%{account_name}')
+  get '/:account_name', controller: :accounts, action: :show, as: :short_account
 end
 
 # rubocop:enable Style/FormatStringToken
