@@ -16,7 +16,8 @@ class Account < ApplicationRecord
             uniqueness: { case_sensitive: false }
   validates :password,
             presence: true,
-            length: { minimum: 8 }
+            length: { minimum: 8 },
+            allow_nil: true
   validates :email,
             presence: true,
             length: { maximum: 255 },
