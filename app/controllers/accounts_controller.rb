@@ -25,7 +25,7 @@ class AccountsController < ApplicationController
     @account = Account.find(params[:account_id])
     if @account.update_attributes(account_params)
       flash[:success] = 'Profile updated'
-      redirect_to @account
+      redirect_to short_account_url(@account.account_name)
     else
       render 'edit'
     end
