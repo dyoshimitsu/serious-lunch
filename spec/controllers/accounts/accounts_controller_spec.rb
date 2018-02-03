@@ -72,12 +72,41 @@ RSpec.describe AccountsController, :type => :controller do
       }
     end
 
+    context 'when updating account_name' do
+      let(:account_name) { 'bar' }
+
+      it 'account is updated' do
+        expect(response).to have_http_status(302)
+        expect(account.reload.account_name).to eq(account_name)
+      end
+    end
+
+    context 'when updating email' do
+      let(:email) { 'bar@example.com' }
+
+      it 'account is updated' do
+        expect(response).to have_http_status(302)
+        expect(account.reload.email).to eq(email)
+      end
+    end
+
+    context 'when updating password' do
+      let(:password) { 'password!' }
+      let(:password_confirmation) { 'password!' }
+
+      it 'account is updated' do
+        expect(response).to have_http_status(302)
+        expect(account.reload.password).to eq(password)
+      end
+    end
+
     context 'when password confirmation does not match' do
       let(:password_confirmation) { 'password!' }
 
-      it 'not update account' do
+      it 'account is not updated' do
+        expect(response).to have_http_status(200)
+        expect(account.reload.password).to eq(password)
       end
     end
   end
-
 end
