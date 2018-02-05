@@ -54,7 +54,6 @@ RSpec.describe AccountsController, :type => :controller do
     before { patch :update, params: params }
 
     let(:account) { FactoryBot.create :account }
-    let(:account_id) { account.account_id }
 
     let(:account_name) { account.account_name }
     let(:email) { account.email }
@@ -63,7 +62,7 @@ RSpec.describe AccountsController, :type => :controller do
 
     let(:params) do
       {
-        account_id: account_id,
+        account_id: account.account_id,
         account:
         {
           account_name: account_name,
@@ -101,17 +100,18 @@ RSpec.describe AccountsController, :type => :controller do
       it 'account is updated' do
         expect(response).to have_http_status(302)
         expect(flash[:success]).not_to be_nil
-        expect(account.reload.password).to eq(password)
+        expect(account.reload.authenticate(password)).not_to eq(false)
       end
     end
 
     context 'when password confirmation does not match' do
-      let(:password_confirmation) { 'password!' }
+      let(:password) { 'password!' }
+      let(:password_confirmation) { 'password' }
 
       it 'account is not updated' do
         expect(response).to have_http_status(200)
         expect(flash[:success]).to be_nil
-        expect(account.reload.password).to eq(password)
+        expect(account.reload.authenticate(password)).to eq(false)
       end
     end
   end
