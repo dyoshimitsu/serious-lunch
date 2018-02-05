@@ -34,6 +34,7 @@ RSpec.describe AccountsController, :type => :controller do
       it 'create new account' do
         expect(response).to have_http_status(302)
         expect(response).to redirect_to(short_account_url(account_name))
+        expect(flash[:success]).not_to be_nil
         expect(Account.count).to eq(1)
       end
     end
@@ -43,6 +44,7 @@ RSpec.describe AccountsController, :type => :controller do
 
       it 'not create new account' do
         expect(response).to have_http_status(200)
+        expect(flash[:success]).to be_nil
         expect(Account.count).to eq(0)
       end
     end
@@ -77,6 +79,7 @@ RSpec.describe AccountsController, :type => :controller do
 
       it 'account is updated' do
         expect(response).to have_http_status(302)
+        expect(flash[:success]).not_to be_nil
         expect(account.reload.account_name).to eq(account_name)
       end
     end
@@ -86,6 +89,7 @@ RSpec.describe AccountsController, :type => :controller do
 
       it 'account is updated' do
         expect(response).to have_http_status(302)
+        expect(flash[:success]).not_to be_nil
         expect(account.reload.email).to eq(email)
       end
     end
@@ -96,6 +100,7 @@ RSpec.describe AccountsController, :type => :controller do
 
       it 'account is updated' do
         expect(response).to have_http_status(302)
+        expect(flash[:success]).not_to be_nil
         expect(account.reload.password).to eq(password)
       end
     end
@@ -105,6 +110,7 @@ RSpec.describe AccountsController, :type => :controller do
 
       it 'account is not updated' do
         expect(response).to have_http_status(200)
+        expect(flash[:success]).to be_nil
         expect(account.reload.password).to eq(password)
       end
     end
