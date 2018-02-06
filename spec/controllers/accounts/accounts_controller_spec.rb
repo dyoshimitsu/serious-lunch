@@ -73,6 +73,17 @@ RSpec.describe AccountsController, :type => :controller do
       }
     end
 
+    context 'when account not logged in attempted to update' do
+      let(:account_name) { 'bar' }
+
+      it 'account is not updated' do
+        expect(response).to have_http_status(302)
+        expect(response).to redirect_to(login_url)
+        expect(flash[:danger]).not_to be_nil
+        expect(account.reload.account_name).not_to eq(account_name)
+      end
+    end
+
     context 'when updating account_name' do
       let(:account_name) { 'bar' }
 
