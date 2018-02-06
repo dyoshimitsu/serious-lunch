@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AccountsController < ApplicationController
+  before_action :logged_in_account, only: [:edit, :update]
 
   def new
     @account = Account.new
@@ -44,5 +45,11 @@ class AccountsController < ApplicationController
       :password,
       :password_confirmation
     )
+  end
+
+  def logged_in_account
+    return if logged_in?
+    flash[:danger] = 'Please log in.'
+    redirect_to login_url
   end
 end
