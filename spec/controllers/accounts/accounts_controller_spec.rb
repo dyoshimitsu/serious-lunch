@@ -51,7 +51,9 @@ RSpec.describe AccountsController, :type => :controller do
   end
 
   describe 'PATCH #update' do
-    before { patch :update, params: params }
+    include SessionsHelper
+
+    let(:action) { patch :update, params: params }
 
     let(:account) { FactoryBot.create :account }
 
@@ -76,6 +78,8 @@ RSpec.describe AccountsController, :type => :controller do
     context 'when account not logged in attempted to update' do
       let(:account_name) { 'bar' }
 
+      before { action }
+
       it 'account is not updated' do
         expect(response).to have_http_status(302)
         expect(response).to redirect_to(login_url)
@@ -87,6 +91,11 @@ RSpec.describe AccountsController, :type => :controller do
     context 'when updating account_name' do
       let(:account_name) { 'bar' }
 
+      before do
+        log_in(account)
+        action
+      end
+
       it 'account is updated' do
         expect(response).to have_http_status(302)
         expect(flash[:success]).not_to be_nil
@@ -96,6 +105,11 @@ RSpec.describe AccountsController, :type => :controller do
 
     context 'when updating email' do
       let(:email) { 'bar@example.com' }
+
+      before do
+        log_in(account)
+        action
+      end
 
       it 'account is updated' do
         expect(response).to have_http_status(302)
@@ -108,6 +122,11 @@ RSpec.describe AccountsController, :type => :controller do
       let(:password) { 'password!' }
       let(:password_confirmation) { 'password!' }
 
+      before do
+        log_in(account)
+        action
+      end
+
       it 'account is updated' do
         expect(response).to have_http_status(302)
         expect(flash[:success]).not_to be_nil
@@ -118,6 +137,11 @@ RSpec.describe AccountsController, :type => :controller do
     context 'when password confirmation does not match' do
       let(:password) { 'password!' }
       let(:password_confirmation) { 'password' }
+
+      before do
+        log_in(account)
+        action
+      end
 
       it 'account is not updated' do
         expect(response).to have_http_status(200)
