@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AccountsController < ApplicationController
+  before_action :logged_in_account, only: [:edit, :update]
 
   def new
     @account = Account.new
@@ -23,7 +24,9 @@ class AccountsController < ApplicationController
 
   def update
     @account = Account.find(params[:account_id])
-    if @account.update_attributes(account_params)
+    if @account != current_account
+      redirect_to(root_url)
+    elsif @account.update_attributes(account_params)
       flash[:success] = 'Profile updated'
       redirect_to short_account_url(@account.account_name)
     else
@@ -33,6 +36,7 @@ class AccountsController < ApplicationController
 
   def edit
     @account = Account.find_by(account_name: params[:account_name])
+    redirect_to(root_url) unless @account == current_account
   end
 
   private
@@ -44,5 +48,11 @@ class AccountsController < ApplicationController
       :password,
       :password_confirmation
     )
+  end
+
+  def logged_in_account
+    return if logged_in?
+    flash[:danger] = 'Please log in.'
+    redirect_to login_url
   end
 end
