@@ -20,7 +20,6 @@ class SessionsController < ApplicationController
   end
 
   private
-
   def remember_me(params, account)
     if params[:session][:remember_me] == '1'
       remember(account)
