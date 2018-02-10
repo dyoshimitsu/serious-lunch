@@ -89,6 +89,27 @@ RSpec.describe AccountsController, :type => :controller do
     end
 
     context 'when updating account_name' do
+      let(:other_account) do
+        FactoryBot.create :account,
+                          account_name: 'hoge',
+                          email: 'hoge@example.com'
+      end
+      let(:account_name) { 'bar' }
+
+      before do
+        log_in(other_account)
+        action
+      end
+
+      it 'account is not updated' do
+        expect(response).to have_http_status(302)
+        expect(response).to redirect_to(root_url)
+        expect(flash[:success]).to be_nil
+        expect(account.reload.account_name).not_to eq(account_name)
+      end
+    end
+
+    context 'when updating account_name' do
       let(:account_name) { 'bar' }
 
       before do
