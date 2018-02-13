@@ -10,6 +10,15 @@ RSpec.describe AccountsController, :type => :controller do
     it { expect(response).to have_http_status(200) }
   end
 
+  describe 'GET #index' do
+    before { get :index }
+
+    it 'should redirect index when not logged in' do
+      expect(response).to have_http_status(302)
+      expect(response).to redirect_to(login_url)
+    end
+  end
+
   describe 'POST #create' do
     before { post :create, params: params }
 
