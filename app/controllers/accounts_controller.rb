@@ -8,7 +8,7 @@ class AccountsController < ApplicationController
   end
 
   def index
-    @accounts = Account.all
+    @accounts = Account.all.order(:account_name)
   end
 
   def show
