@@ -4,8 +4,8 @@ class Validators::NonAccountNameValidator < ActiveModel::Validator
   NON_ACCOUNT_NAME = %w[
     about
     account
-    accounts
     account_activations
+    accounts
     activity
     all
     announcements
