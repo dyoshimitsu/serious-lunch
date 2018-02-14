@@ -5,6 +5,7 @@ class Validators::NonAccountNameValidator < ActiveModel::Validator
     about
     account
     accounts
+    account_activations
     activity
     all
     announcements
