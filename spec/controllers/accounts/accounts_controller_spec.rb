@@ -13,9 +13,23 @@ RSpec.describe AccountsController, :type => :controller do
   describe 'GET #index' do
     before { get :index }
 
-    it 'should redirect index when not logged in' do
-      expect(response).to have_http_status(302)
-      expect(response).to redirect_to(login_url)
+    context 'when not logged in' do
+      it 'should redirect index' do
+        expect(response).to have_http_status(302)
+        expect(response).to redirect_to(login_url)
+      end
+    end
+
+    context 'when logged in' do
+      include SessionsHelper
+      let(:account) { FactoryBot.create :account }
+
+      before do
+        log_in(account)
+        get :index
+      end
+
+      it { expect(response).to have_http_status(200) }
     end
   end
 
