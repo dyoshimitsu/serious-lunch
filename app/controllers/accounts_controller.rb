@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
 class AccountsController < ApplicationController
-  before_action :logged_in_account, only: [:edit, :update]
+  before_action :logged_in_account, only: [:index, :edit, :update]
 
   def new
     @account = Account.new
+  end
+
+  def index
+    @accounts = Account.all.order(:account_name)
   end
 
   def show

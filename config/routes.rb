@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   post '/login', controller: :sessions, action: :create
   delete '/logout', controller: :sessions, action: :destroy
 
+  get '/users', controller: :accounts, action: :index
   resources :accounts, only: [:update], param: :account_id
   resources :accounts, only: [:edit], param: :account_name
   get '/accounts/:account_name', controller: :accounts, action: :show,
