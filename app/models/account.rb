@@ -3,11 +3,12 @@
 class Account < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
-  attr_accessor :remember_token
-
   has_secure_password
 
+  attr_accessor :remember_token, :activation_token
   before_save { email.downcase! }
+  before_create :create_activation_digest
+
   validates_with Validators::NonAccountNameValidator
   validates :account_name,
             presence: true,
@@ -50,5 +51,12 @@ class Account < ApplicationRecord
 
   def forget
     update_attribute(:remember_digest, nil)
+  end
+
+  private
+
+  def create_activation_digest
+    self.activation_token  = Account.new_token
+    self.activation_digest = Account.digest(activation_token)
   end
 end
