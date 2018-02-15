@@ -56,8 +56,8 @@ RSpec.describe AccountsController, :type => :controller do
     context 'when parameter is valid' do
       it 'create new account' do
         expect(response).to have_http_status(302)
-        expect(response).to redirect_to(short_account_url(account_name))
-        expect(flash[:success]).not_to be_nil
+        expect(response).to redirect_to(root_url)
+        expect(flash[:info]).not_to be_nil
         expect(Account.count).to eq(1)
       end
     end
