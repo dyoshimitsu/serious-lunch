@@ -18,9 +18,9 @@ class AccountsController < ApplicationController
   def create
     @account = Account.new(account_params)
     if @account.save
-      log_in @account
-      flash[:success] = 'Welcome to the Serious Lunch!'
-      redirect_to short_account_url(@account.account_name)
+      AccountMailer.account_activation(@account).deliver_now
+      flash[:info] = 'Please check your email to activate your account.'
+      redirect_to root_url
     else
       render 'new'
     end
