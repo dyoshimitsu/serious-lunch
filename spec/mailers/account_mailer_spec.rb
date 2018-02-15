@@ -15,6 +15,8 @@ RSpec.describe AccountMailer, type: :mailer do
 
     it 'renders the body' do
       expect(mail.body.encoded).to match('Hi')
+      expect(mail.body.encoded).to match(account.account_name)
+      expect(mail.body.encoded).to match(CGI.escape(account.email))
     end
   end
 end
