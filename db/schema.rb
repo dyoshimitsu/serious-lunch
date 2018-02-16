@@ -18,11 +18,12 @@ ActiveRecord::Schema.define(version: 2018_02_14_124040) do
     t.string "password_digest", null: false
     t.string "remember_digest"
     t.string "activation_digest"
-    t.boolean "activated", default: false
+    t.boolean "activated", default: false, null: false
     t.datetime "activated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_name"], name: "index_accounts_on_account_name", unique: true
+    t.index ["activated"], name: "index_accounts_on_activated"
     t.index ["email"], name: "index_accounts_on_email", unique: true
   end
 
