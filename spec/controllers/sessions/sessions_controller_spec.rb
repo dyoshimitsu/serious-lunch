@@ -29,6 +29,8 @@ RSpec.describe SessionsController, :type => :controller do
 
     context 'when parameter is valid' do
       context 'when account is not activated' do
+        let(:account) { FactoryBot.create :account, activated: false }
+
         it 'fail in login' do
           expect(response).to have_http_status(302)
           expect(response).to redirect_to(root_url)
@@ -37,8 +39,6 @@ RSpec.describe SessionsController, :type => :controller do
       end
 
       context 'when account is activated' do
-        let(:account) { FactoryBot.create :account, activated: true }
-
         it 'success in login' do
           expect(response).to have_http_status(302)
           expect(response).to redirect_to(short_account_url(account.account_name))
