@@ -8,7 +8,9 @@ class AccountsController < ApplicationController
   end
 
   def index
-    @accounts = Account.paginate(page: params[:page]).order(:account_name)
+    @accounts = Account.where(activated: true)
+                       .paginate(page: params[:page])
+                       .order(:account_name)
   end
 
   def show
