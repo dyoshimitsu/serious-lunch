@@ -4,14 +4,7 @@ class SessionsController < ApplicationController
 
   def create
     account = Account.find_by(email: params[:session][:email].downcase)
-    if account&.authenticate(params[:session][:password])
-      log_in account
-      remember_me(params, account)
-      redirect_back_or short_account_url(account.account_name)
-    else
-      flash.now[:danger] = 'Invalid email/password combination'
-      render 'new'
-    end
+    account_authenticate(params, account)
   end
 
   def destroy
@@ -21,11 +14,19 @@ class SessionsController < ApplicationController
 
   private
 
-  def remember_me(params, account)
-    if params[:session][:remember_me] == '1'
-      remember(account)
+  def account_authenticate(params, account)
+    if account&.authenticate(params[:session][:password])
+      if account.activated?
+        log_in account
+        params[:session][:remember_me] == '1' ? remember(account) : forget(account)
+        redirect_back_or short_account_url(account.account_name)
+      else
+        flash[:warning] = 'Account not activated. Check your email for the activation link.'
+        redirect_to root_url
+      end
     else
-      forget(account)
+      flash.now[:danger] = 'Invalid email/password combination'
+      render 'new'
     end
   end
 end
