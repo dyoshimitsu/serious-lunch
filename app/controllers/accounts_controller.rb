@@ -8,7 +8,9 @@ class AccountsController < ApplicationController
   end
 
   def index
-    @accounts = Account.paginate(page: params[:page]).order(:account_name)
+    @accounts = Account.where(activated: true)
+                       .paginate(page: params[:page])
+                       .order(:account_name)
   end
 
   def show
@@ -18,9 +20,9 @@ class AccountsController < ApplicationController
   def create
     @account = Account.new(account_params)
     if @account.save
-      log_in @account
-      flash[:success] = 'Welcome to the Serious Lunch!'
-      redirect_to short_account_url(@account.account_name)
+      @account.send_activation_email
+      flash[:info] = 'Please check your email to activate your account.'
+      redirect_to root_url
     else
       render 'new'
     end

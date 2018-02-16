@@ -3,11 +3,12 @@
 class Account < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
-  attr_accessor :remember_token
-
   has_secure_password
 
+  attr_accessor :remember_token, :activation_token
   before_save { email.downcase! }
+  before_create :create_activation_digest
+
   validates_with Validators::NonAccountNameValidator
   validates :account_name,
             presence: true,
@@ -43,12 +44,28 @@ class Account < ApplicationRecord
     update_attribute(:remember_digest, Account.digest(remember_token))
   end
 
-  def authenticated?(remember_token)
-    return false if remember_digest.nil?
-    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  def authenticated?(attribute, token)
+    digest = send("#{attribute}_digest")
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
   end
 
   def forget
     update_attribute(:remember_digest, nil)
+  end
+
+  def activate
+    update_columns(activated: true, activated_at: Time.zone.now)
+  end
+
+  def send_activation_email
+    AccountMailer.account_activation(self).deliver_now
+  end
+
+  private
+
+  def create_activation_digest
+    self.activation_token  = Account.new_token
+    self.activation_digest = Account.digest(activation_token)
   end
 end

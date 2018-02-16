@@ -1,0 +1,9 @@
+<h1>Serious Lunch</h1>
+
+<p>Hi <%= @account.account_name %>,</p>
+
+<p>
+  Welcome to the Serious Lunch! Click on the link below to activate your account:
+</p>
+
+<%= link_to "Activate", edit_account_activation_url(@account.activation_token, email: @account.email) %>

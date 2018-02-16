@@ -5,5 +5,6 @@ FactoryBot.define do
     account_name { 'foo' }
     email { 'foo@example.com' }
     password { 'password' }
+    activated { true }
   end
 end
