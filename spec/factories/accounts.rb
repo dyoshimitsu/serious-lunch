@@ -6,6 +6,5 @@ FactoryBot.define do
     email { 'foo@example.com' }
     password { 'password' }
     activated { true }
-    activated_at { Time.zone.now }
   end
 end
