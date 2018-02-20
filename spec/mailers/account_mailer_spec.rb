@@ -19,4 +19,24 @@ RSpec.describe AccountMailer, type: :mailer do
       expect(mail.body.encoded).to match(CGI.escape(account.email))
     end
   end
+
+  describe 'password_reset' do
+    let(:account) { FactoryBot.create :account }
+    let(:mail) do
+      account.create_reset_digest
+      AccountMailer.password_reset(account)
+    end
+
+    it 'renders the headers' do
+      expect(mail.subject).to eq('Password reset')
+      expect(mail.to).to eq([account.email])
+      expect(mail.from).to eq(['noreply@serious-lunch.com'])
+    end
+
+    it 'renders the body' do
+      expect(mail.body.encoded).to match('will expire')
+      expect(mail.body.encoded).to match(account.account_name)
+      expect(mail.body.encoded).to match(CGI.escape(account.email))
+    end
+  end
 end
