@@ -72,6 +72,10 @@ class Account < ApplicationRecord
     AccountMailer.password_reset(self).deliver_now
   end
 
+  def password_reset_expired?
+    reset_sent_at < 30.minutes.ago
+  end
+
   private
 
   def create_activation_digest
