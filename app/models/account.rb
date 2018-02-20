@@ -64,7 +64,7 @@ class Account < ApplicationRecord
 
   def create_reset_digest
     self.reset_token = Account.new_token
-    update_attribute(:reset_digest,  Account.digest(reset_token))
+    update_attribute(:reset_digest, Account.digest(reset_token))
     update_attribute(:reset_sent_at, Time.zone.now)
   end
 
@@ -79,7 +79,7 @@ class Account < ApplicationRecord
   private
 
   def create_activation_digest
-    self.activation_token  = Account.new_token
+    self.activation_token = Account.new_token
     self.activation_digest = Account.digest(activation_token)
   end
 end
