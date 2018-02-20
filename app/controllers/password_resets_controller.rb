@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 class PasswordResetsController < ApplicationController
-
-  def new
-  end
+  before_action :valid_account, only: [:edit, :update]
 
   def create
     @account = Account.find_by(email: params[:password_reset][:email].downcase)
@@ -18,6 +16,13 @@ class PasswordResetsController < ApplicationController
     end
   end
 
-  def edit
+  private
+
+  def valid_account
+    account = Account.find_by(email: params[:email])
+    unless (account && account.activated? &&
+        account.authenticated?(:reset, params[:id]))
+      redirect_to root_url
+    end
   end
 end
