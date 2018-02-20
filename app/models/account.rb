@@ -5,7 +5,7 @@ class Account < ApplicationRecord
 
   has_secure_password
 
-  attr_accessor :remember_token, :activation_token
+  attr_accessor :remember_token, :activation_token, :reset_token
   before_save { email.downcase! }
   before_create :create_activation_digest
 
@@ -60,6 +60,16 @@ class Account < ApplicationRecord
 
   def send_activation_email
     AccountMailer.account_activation(self).deliver_now
+  end
+
+  def create_reset_digest
+    self.reset_token = Account.new_token
+    update_attribute(:reset_digest,  Account.digest(reset_token))
+    update_attribute(:reset_sent_at, Time.zone.now)
+  end
+
+  def send_password_reset_email
+    AccountMailer.password_reset(self).deliver_now
   end
 
   private
