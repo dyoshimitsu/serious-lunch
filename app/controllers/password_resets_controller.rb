@@ -18,10 +18,10 @@ class PasswordResetsController < ApplicationController
   end
 
   def update
-    if params[:user][:password].empty?
+    if params[:account][:password].empty?
       @account.errors.add(:password, :blank)
       render 'edit'
-    elsif @account.update_attributes(user_params)
+    elsif @account.update_attributes(account_params)
       log_in @account
       @account.update_attribute(:reset_digest, nil)
       flash[:success] = 'Password has been reset.'
@@ -32,6 +32,13 @@ class PasswordResetsController < ApplicationController
   end
 
   private
+
+  def account_params
+    params.require(:account).permit(
+      :password,
+      :password_confirmation
+    )
+  end
 
   def valid_account
     @account = Account.find_by(email: params[:email])
