@@ -64,7 +64,8 @@ class Account < ApplicationRecord
 
   def create_reset_digest
     self.reset_token = Account.new_token
-    update_columns(reset_digest: Account.digest(reset_token, reset_sent_at: Time.zone.now)
+    update_columns(reset_digest: Account.digest(reset_token),
+                   reset_sent_at: Time.zone.now)
   end
 
   def send_password_reset_email
