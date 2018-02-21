@@ -25,7 +25,7 @@ class PasswordResetsController < ApplicationController
       log_in @account
       @account.update_attribute(:reset_digest, nil)
       flash[:success] = 'Password has been reset.'
-      redirect_to @account
+      redirect_to short_account_url(@account.account_name)
     else
       render 'edit'
     end
