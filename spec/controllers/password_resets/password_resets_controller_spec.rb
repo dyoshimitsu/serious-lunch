@@ -29,17 +29,17 @@ RSpec.describe PasswordResetsController, :type => :controller do
       let(:email) { account.email }
 
       it 'should reset_digest updated' do
-        expect {
+        expect do
           account.reload
-        }.to change{
+        end.to change{
           account.reset_digest.nil?
         }.from(true).to(false)
       end
 
       it 'should reset_sent_at updated' do
-        expect {
+        expect do
           account.reload
-        }.to change{
+        end.to change{
           account.reset_sent_at.nil?
         }.from(true).to(false)
       end
