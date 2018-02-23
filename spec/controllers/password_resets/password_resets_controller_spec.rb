@@ -60,20 +60,66 @@ RSpec.describe PasswordResetsController, :type => :controller do
   end
 
   describe 'PATCH #update' do
-    before { patch :update, params: params }
+    let(:action) { patch :update, params: params }
 
-    let(:password) { 'password' }
-    let(:password_confirmation) { 'password' }
+    let(:account) { FactoryBot.create :account }
+
+    let(:reset_token) { account.reset_token }
+    let(:email) { account.email }
+    let(:password) { account.password }
+    let(:password_confirmation) { password }
 
     let(:params) do
       {
+        reset_token: reset_token,
+        email: email,
         account:
             {
               password: password,
               password_confirmation: password_confirmation,
             },
       }
+    end
 
+    before do
+      account.create_reset_digest
+      action
+    end
+
+    context 'when email is empty' do
+      let(:email) { '' }
+
+      it 'should be redirected to root' do
+        expect(response).to have_http_status(302)
+        expect(response).to redirect_to(root_url)
+      end
+    end
+
+    context 'when account is not activated' do
+      let(:account) { FactoryBot.create :account, activated: false }
+
+      it 'should be redirected to root' do
+        expect(response).to have_http_status(302)
+        expect(response).to redirect_to(root_url)
+      end
+    end
+
+    context 'when reset_token is empty' do
+      let(:reset_token) { '' }
+
+      it 'should be redirected to root' do
+        expect(response).to have_http_status(302)
+        expect(response).to redirect_to(root_url)
+      end
+    end
+
+    context 'when password is empty' do
+      let(:password) { '' }
+
+      it 'should flash danger' do
+        expect(response).to have_http_status(200)
+        expect(account.errors[:password]).not_to be_nil
+      end
     end
   end
 end
