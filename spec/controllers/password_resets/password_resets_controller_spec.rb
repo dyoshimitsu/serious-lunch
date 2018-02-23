@@ -121,5 +121,24 @@ RSpec.describe PasswordResetsController, :type => :controller do
         expect(account.errors[:password]).not_to be_nil
       end
     end
+
+    context 'when password confirmation does not match' do
+      let(:password) { 'password!' }
+      let(:password_confirmation) { 'password' }
+
+      it 'account is not updated' do
+        expect(response).to have_http_status(200)
+        expect(flash[:success]).to be_nil
+        expect(account.reload.authenticate(password)).to eq(false)
+      end
+    end
+
+    context 'when reset password' do
+      it 'account is updated' do
+        expect(response).to have_http_status(302)
+        expect(flash[:success]).not_to be_nil
+        expect(account.reload.authenticate(password)).not_to eq(false)
+      end
+    end
   end
 end
