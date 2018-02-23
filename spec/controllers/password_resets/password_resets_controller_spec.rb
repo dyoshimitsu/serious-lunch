@@ -113,6 +113,20 @@ RSpec.describe PasswordResetsController, :type => :controller do
       end
     end
 
+    context 'when 30 minutes have passed since send of reset token' do
+      let(:action) do
+        account.reset_sent_at -= 30.minutes
+        account.save
+        patch :update, params: params
+      end
+
+      it 'should be redirected to new_password_reset_url' do
+        expect(response).to have_http_status(302)
+        expect(flash[:danger]).not_to be_nil
+        expect(response).to redirect_to(new_password_reset_url)
+      end
+    end
+
     context 'when password is empty' do
       let(:password) { '' }
 
