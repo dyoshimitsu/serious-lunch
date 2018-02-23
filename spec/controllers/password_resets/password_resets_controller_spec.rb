@@ -44,7 +44,7 @@ RSpec.describe PasswordResetsController, :type => :controller do
         }.from(true).to(false)
       end
 
-      it 'should be redirected' do
+      it 'should be redirected to root' do
         expect(response).to have_http_status(302)
         expect(response).to redirect_to(root_url)
         expect(flash[:info]).not_to be_nil
