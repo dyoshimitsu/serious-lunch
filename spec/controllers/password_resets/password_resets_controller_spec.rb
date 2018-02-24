@@ -64,6 +64,10 @@ RSpec.describe PasswordResetsController, :type => :controller do
 
     let(:account) { FactoryBot.create :account }
 
+    let(:create_reset_digest) do
+      account.create_reset_digest
+    end
+
     let(:reset_token) { account.reset_token }
     let(:email) { account.email }
     let(:password) { account.password }
@@ -82,7 +86,7 @@ RSpec.describe PasswordResetsController, :type => :controller do
     end
 
     before do
-      account.create_reset_digest
+      create_reset_digest
       action
     end
 
@@ -114,10 +118,10 @@ RSpec.describe PasswordResetsController, :type => :controller do
     end
 
     context 'when 30 minutes have passed since send of reset token' do
-      let(:action) do
+      let(:create_reset_digest) do
+        account.create_reset_digest
         account.reset_sent_at -= 30.minutes
         account.save
-        patch :update, params: params
       end
 
       it 'should be redirected to new_password_reset_url' do
