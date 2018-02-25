@@ -17,7 +17,8 @@ Rails.application.routes.draw do
   post '/login', controller: :sessions, action: :create
   delete '/logout', controller: :sessions, action: :destroy
 
-  resources :account_activations, only: [:edit]
+  resources :account_activations, param: :activation_token, only: [:edit]
+  resources :password_resets, param: :reset_token, only: [:new, :create, :edit, :update]
 
   get '/users', controller: :accounts, action: :index
   resources :accounts, only: [:update], param: :account_id

@@ -5,7 +5,7 @@ class Account < ApplicationRecord
 
   has_secure_password
 
-  attr_accessor :remember_token, :activation_token
+  attr_accessor :remember_token, :activation_token, :reset_token
   before_save { email.downcase! }
   before_create :create_activation_digest
 
@@ -62,10 +62,24 @@ class Account < ApplicationRecord
     AccountMailer.account_activation(self).deliver_now
   end
 
+  def create_reset_digest
+    self.reset_token = Account.new_token
+    update_columns(reset_digest: Account.digest(reset_token),
+                   reset_sent_at: Time.zone.now)
+  end
+
+  def send_password_reset_email
+    AccountMailer.password_reset(self).deliver_now
+  end
+
+  def password_reset_expired?
+    reset_sent_at < 30.minutes.ago
+  end
+
   private
 
   def create_activation_digest
-    self.activation_token  = Account.new_token
+    self.activation_token = Account.new_token
     self.activation_digest = Account.digest(activation_token)
   end
 end
