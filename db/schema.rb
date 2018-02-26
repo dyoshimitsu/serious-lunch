@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_02_20_003633) do
+ActiveRecord::Schema.define(version: 2018_02_26_135606) do
 
   create_table "accounts", primary_key: "account_id", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "account_name", limit: 50, null: false
@@ -29,4 +29,13 @@ ActiveRecord::Schema.define(version: 2018_02_20_003633) do
     t.index ["email"], name: "index_accounts_on_email", unique: true
   end
 
+  create_table "visit_restaurants", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "created_at"], name: "index_visit_restaurants_on_account_id_and_created_at", unique: true
+  end
+
+  add_foreign_key "visit_restaurants", "accounts", primary_key: "account_id"
 end
