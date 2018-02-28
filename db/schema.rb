@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 2018_02_26_135606) do
     t.string "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id", "created_at"], name: "index_visit_restaurants_on_account_id_and_created_at", unique: true
+    t.index ["account_id", "created_at"], name: "index_visit_restaurants_on_account_id_and_created_at"
   end
 
   add_foreign_key "visit_restaurants", "accounts", primary_key: "account_id"
