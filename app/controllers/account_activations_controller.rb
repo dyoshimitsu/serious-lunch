@@ -3,7 +3,7 @@
 class AccountActivationsController < ApplicationController
 
   def edit
-    account = Account.find_by(email: params[:email])
+    account = Account.find_by(email_address: params[:email_address])
     if account &&
        !account.activated? &&
        account.authenticated?(:activation, params[:activation_token])
