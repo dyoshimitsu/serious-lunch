@@ -5,7 +5,9 @@ class PasswordResetsController < ApplicationController
   before_action :check_expiration, only: [:edit, :update]
 
   def create
-    account = Account.find_by(email_address: params[:password_reset][:email_address].downcase)
+    account = Account.find_by(
+      email_address: params[:password_reset][:email_address].downcase
+    )
     if account
       account.create_reset_digest
       account.send_password_reset_email
