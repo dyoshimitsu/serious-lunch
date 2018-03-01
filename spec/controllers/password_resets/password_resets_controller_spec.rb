@@ -13,20 +13,20 @@ RSpec.describe PasswordResetsController, :type => :controller do
   describe 'POST #create' do
     before { post :create, params: params }
 
-    let(:email) { '' }
+    let(:email_address) { '' }
 
     let(:params) do
       {
         password_reset:
             {
-              email: email,
+              email_address: email_address,
             },
       }
     end
 
     context 'when mail exist' do
       let(:account) { FactoryBot.create :account }
-      let(:email) { account.email }
+      let(:email_address) { account.email_address }
 
       it 'should reset_digest updated' do
         expect do
@@ -69,14 +69,14 @@ RSpec.describe PasswordResetsController, :type => :controller do
     end
 
     let(:reset_token) { account.reset_token }
-    let(:email) { account.email }
+    let(:email_address) { account.email_address }
     let(:password) { account.password }
     let(:password_confirmation) { password }
 
     let(:params) do
       {
         reset_token: reset_token,
-        email: email,
+        email_address: email_address,
         account:
             {
               password: password,
@@ -90,8 +90,8 @@ RSpec.describe PasswordResetsController, :type => :controller do
       action
     end
 
-    context 'when email is empty' do
-      let(:email) { '' }
+    context 'when email_address is empty' do
+      let(:email_address) { '' }
 
       it 'should be redirected to root' do
         expect(response).to have_http_status(302)
