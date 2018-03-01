@@ -5,7 +5,7 @@ class PasswordResetsController < ApplicationController
   before_action :check_expiration, only: [:edit, :update]
 
   def create
-    account = Account.find_by(email: params[:password_reset][:email].downcase)
+    account = Account.find_by(email_address: params[:password_reset][:email_address].downcase)
     if account
       account.create_reset_digest
       account.send_password_reset_email
@@ -41,7 +41,7 @@ class PasswordResetsController < ApplicationController
   end
 
   def valid_account
-    @account = Account.find_by(email: params[:email])
+    @account = Account.find_by(email_address: params[:email_address])
     unless @account&.activated? &&
            @account.authenticated?(:reset, params[:reset_token])
       redirect_to root_url
