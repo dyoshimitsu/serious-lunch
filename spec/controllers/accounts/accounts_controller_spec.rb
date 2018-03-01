@@ -37,7 +37,7 @@ RSpec.describe AccountsController, :type => :controller do
     before { post :create, params: params }
 
     let(:account_name) { 'foo' }
-    let(:email) { 'foo@example.com' }
+    let(:email_address) { 'foo@example.com' }
     let(:password) { 'password' }
     let(:password_confirmation) { 'password' }
 
@@ -46,7 +46,7 @@ RSpec.describe AccountsController, :type => :controller do
         account:
         {
           account_name: account_name,
-          email: email,
+          email_address: email_address,
           password: password,
           password_confirmation: password_confirmation,
         },
@@ -81,7 +81,7 @@ RSpec.describe AccountsController, :type => :controller do
     let(:account) { FactoryBot.create :account }
 
     let(:account_name) { account.account_name }
-    let(:email) { account.email }
+    let(:email_address) { account.email_address }
     let(:password) { account.password }
     let(:password_confirmation) { account.password }
 
@@ -91,7 +91,7 @@ RSpec.describe AccountsController, :type => :controller do
         account:
         {
           account_name: account_name,
-          email: email,
+          email_address: email_address,
           password: password,
           password_confirmation: password_confirmation,
         },
@@ -115,7 +115,7 @@ RSpec.describe AccountsController, :type => :controller do
       let(:other_account) do
         FactoryBot.create :account,
                           account_name: 'hoge',
-                          email: 'hoge@example.com'
+                          email_address: 'hoge@example.com'
       end
       let(:account_name) { 'bar' }
 
@@ -147,8 +147,8 @@ RSpec.describe AccountsController, :type => :controller do
       end
     end
 
-    context 'when updating email' do
-      let(:email) { 'bar@example.com' }
+    context 'when updating email_address' do
+      let(:email_address) { 'bar@example.com' }
 
       before do
         log_in(account)
@@ -158,7 +158,7 @@ RSpec.describe AccountsController, :type => :controller do
       it 'account is updated' do
         expect(response).to have_http_status(302)
         expect(flash[:success]).not_to be_nil
-        expect(account.reload.email).to eq(email)
+        expect(account.reload.email_address).to eq(email_address)
       end
     end
 
