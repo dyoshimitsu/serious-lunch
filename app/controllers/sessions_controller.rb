@@ -3,7 +3,7 @@
 class SessionsController < ApplicationController
 
   def create
-    account = Account.find_by(email: params[:session][:email].downcase)
+    account = Account.find_by(email_address: params[:session][:email_address].downcase)
     account_authenticate(params, account)
   end
 

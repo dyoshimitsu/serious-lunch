@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_02_26_135606) do
+ActiveRecord::Schema.define(version: 2018_03_01_112447) do
 
   create_table "accounts", primary_key: "account_id", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "account_name", limit: 50, null: false
-    t.string "email", null: false
+    t.string "email_address", null: false
     t.string "password_digest", null: false
     t.string "remember_digest"
     t.string "activation_digest"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2018_02_26_135606) do
     t.datetime "updated_at", null: false
     t.index ["account_name"], name: "index_accounts_on_account_name", unique: true
     t.index ["activated"], name: "index_accounts_on_activated"
-    t.index ["email"], name: "index_accounts_on_email", unique: true
+    t.index ["email_address"], name: "index_accounts_on_email_address", unique: true
   end
 
   create_table "visit_restaurants", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|

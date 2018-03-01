@@ -14,14 +14,14 @@ RSpec.describe SessionsController, :type => :controller do
     before { post :create, params: params }
 
     let(:account) { FactoryBot.create :account }
-    let(:email) { account.email }
+    let(:email_address) { account.email_address }
     let(:password) { account.password }
 
     let(:params) do
       {
         session:
         {
-          email: email,
+          email_address: email_address,
           password: password,
         },
       }
@@ -48,7 +48,7 @@ RSpec.describe SessionsController, :type => :controller do
     end
 
     context 'when the account does not exist' do
-      let(:email) { 'bar@example.com' }
+      let(:email_address) { 'bar@example.com' }
 
       it 'fail in login' do
         expect(response).to have_http_status(200)

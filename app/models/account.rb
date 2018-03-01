@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class Account < ApplicationRecord
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  VALID_EMAIL_ADDRESS_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   has_secure_password
 
   attr_accessor :remember_token, :activation_token, :reset_token
-  before_save { email.downcase! }
+  before_save { email_address.downcase! }
   before_create :create_activation_digest
 
   validates_with Validators::NonAccountNameValidator
@@ -19,10 +19,10 @@ class Account < ApplicationRecord
             presence: true,
             length: { minimum: 8 },
             allow_nil: true
-  validates :email,
+  validates :email_address,
             presence: true,
             length: { maximum: 255 },
-            format: { with: VALID_EMAIL_REGEX },
+            format: { with: VALID_EMAIL_ADDRESS_REGEX },
             uniqueness: { case_sensitive: false }
 
   def self.digest(string)

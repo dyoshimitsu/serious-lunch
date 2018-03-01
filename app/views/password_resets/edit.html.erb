@@ -6,7 +6,7 @@
     <%= form_for(@account, url: password_reset_path(params[:reset_token])) do |f| %>
       <%= render 'shared/error_messages' %>
 
-      <%= hidden_field_tag :email, @account.email %>
+      <%= hidden_field_tag :email_address, @account.email_address %>
 
       <%= f.label :password %>
       <%= f.password_field :password, class: 'form-control' %>
