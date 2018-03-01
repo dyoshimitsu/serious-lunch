@@ -9,14 +9,14 @@ RSpec.describe AccountMailer, type: :mailer do
 
     it 'renders the headers' do
       expect(mail.subject).to eq('Account activation')
-      expect(mail.to).to eq([account.email])
+      expect(mail.to).to eq([account.email_address])
       expect(mail.from).to eq(['noreply@serious-lunch.com'])
     end
 
     it 'renders the body' do
       expect(mail.body.encoded).to match('Hi')
       expect(mail.body.encoded).to match(account.account_name)
-      expect(mail.body.encoded).to match(CGI.escape(account.email))
+      expect(mail.body.encoded).to match(CGI.escape(account.email_address))
     end
   end
 
@@ -29,14 +29,14 @@ RSpec.describe AccountMailer, type: :mailer do
 
     it 'renders the headers' do
       expect(mail.subject).to eq('Password reset')
-      expect(mail.to).to eq([account.email])
+      expect(mail.to).to eq([account.email_address])
       expect(mail.from).to eq(['noreply@serious-lunch.com'])
     end
 
     it 'renders the body' do
       expect(mail.body.encoded).to match('will expire')
       expect(mail.body.encoded).to match(account.account_name)
-      expect(mail.body.encoded).to match(CGI.escape(account.email))
+      expect(mail.body.encoded).to match(CGI.escape(account.email_address))
     end
   end
 end
