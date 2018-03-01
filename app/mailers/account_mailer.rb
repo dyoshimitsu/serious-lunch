@@ -4,11 +4,11 @@ class AccountMailer < ApplicationMailer
 
   def account_activation(account)
     @account = account
-    mail to: account.email, subject: 'Account activation'
+    mail to: account.email_address, subject: 'Account activation'
   end
 
   def password_reset(account)
     @account = account
-    mail to: account.email, subject: 'Password reset'
+    mail to: account.email_address, subject: 'Password reset'
   end
 end
