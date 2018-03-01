@@ -6,4 +6,4 @@
   Welcome to the Serious Lunch! Click on the link below to activate your account:
 </p>
 
-<%= link_to "Activate", edit_account_activation_url(@account.activation_token, email: @account.email) %>
+<%= link_to "Activate", edit_account_activation_url(@account.activation_token, email_address: @account.email_address) %>
