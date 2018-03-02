@@ -67,7 +67,7 @@ RSpec.describe Account, type: :model do
       account
     end
 
-    context 'When password is larger than minimum length' do
+    context 'when password is larger than minimum length' do
       let(:password) { 'a' * 8 }
 
       it { expect(validation).to be_valid }
