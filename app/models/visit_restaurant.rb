@@ -4,5 +4,5 @@ class VisitRestaurant < ActiveRecord::Base
   belongs_to :account
 
   validates :account_id, presence: true
-  validates :comment, presence: true, length: { maximum: 255 }
+  validates :comment, length: { maximum: 255 }
 end
