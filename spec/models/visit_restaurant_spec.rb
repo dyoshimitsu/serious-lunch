@@ -11,6 +11,12 @@ RSpec.describe VisitRestaurant, type: :model do
       visit_restaurant
     end
 
+    context 'when comment is nil' do
+      let(:comment) { nil }
+
+      it { expect(validation).to be_valid }
+    end
+
     context 'when comment is empty' do
       let(:comment) { '' }
 
