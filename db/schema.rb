@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2018_03_01_112447) do
 
-  create_table "accounts", primary_key: "account_id", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "accounts", primary_key: "account_id", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "account_name", limit: 50, null: false
     t.string "email_address", null: false
     t.string "password_digest", null: false
