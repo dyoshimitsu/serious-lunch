@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2018_03_01_112447) do
     t.index ["email_address"], name: "index_accounts_on_email_address", unique: true
   end
 
-  create_table "visit_restaurants", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "visit_restaurants", primary_key: "visit_restaurant_id", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.string "comment"
     t.datetime "created_at", null: false
