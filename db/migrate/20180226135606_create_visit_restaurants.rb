@@ -11,6 +11,7 @@ class CreateVisitRestaurants < ActiveRecord::Migration[5.2]
     end
 
     add_index :visit_restaurants, [:account_id, :visit_date]
+    add_index :visit_restaurants, [:account_id, :created_at]
     add_foreign_key :visit_restaurants,
                     :accounts,
                     primary_key: :account_id
