@@ -35,4 +35,24 @@ RSpec.describe VisitRestaurant, type: :model do
       it { expect(validation).not_to be_valid }
     end
   end
+
+  describe 'validation of visit_date' do
+    let(:validation) do
+      visit_restaurant = FactoryBot.create :visit_restaurant
+      visit_restaurant.visit_date = visit_date
+      visit_restaurant
+    end
+
+    context 'when visit_date is nil' do
+      let(:visit_date) { nil }
+
+      it { expect(validation).not_to be_valid }
+    end
+
+    context 'when visit_date is empty' do
+      let(:visit_date) { '' }
+
+      it { expect(validation).not_to be_valid }
+    end
+  end
 end
