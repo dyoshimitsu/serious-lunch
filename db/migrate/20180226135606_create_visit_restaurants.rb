@@ -4,8 +4,8 @@ class CreateVisitRestaurants < ActiveRecord::Migration[5.2]
   def change
     create_table :visit_restaurants, :primary_key => :visit_restaurant_id do |t|
       t.bigint :account_id, null: false
-      t.string :comment
       t.datetime :visit_date, null: false
+      t.string :comment
 
       t.timestamps
     end
