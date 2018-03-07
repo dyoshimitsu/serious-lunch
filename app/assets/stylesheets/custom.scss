@@ -215,6 +215,14 @@ input {
     margin-top: 5em;
     padding-top: 0;
   }
+  .visit_date:before {
+    margin-right: 5px;
+    content: "\00b7";
+    margin-right: 5px;
+  }
+  .visit_date {
+    color: $gray-light;
+  }
   .comment {
     display: block;
     margin-left: 60px;
@@ -222,11 +230,6 @@ input {
       display: block;
       padding: 5px 0;
     }
-  }
-  .timestamp {
-    color: $gray-light;
-    display: block;
-    margin-left: 60px;
   }
   .gravatar {
     float: left;
