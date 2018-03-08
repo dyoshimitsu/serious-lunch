@@ -15,6 +15,7 @@ class AccountsController < ApplicationController
 
   def show
     @account = Account.find_by(account_name: params[:account_name])
+    @visit_restaurants = @account.visit_restaurants.paginate(page: params[:page])
   end
 
   def create
