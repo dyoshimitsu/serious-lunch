@@ -10,7 +10,7 @@ foo = Account.find_or_create_by(account_id: 1) do |record|
   )
 end
 
-Account.find_or_create_by(account_id: 2) do |record|
+bar = Account.find_or_create_by(account_id: 2) do |record|
   record.assign_attributes(
     account_name: 'bar',
     email_address: 'bar@example.com',
@@ -29,6 +29,14 @@ VisitRestaurant.find_or_create_by(visit_restaurant_id: 1) do |record|
 end
 
 VisitRestaurant.find_or_create_by(visit_restaurant_id: 2) do |record|
+  record.assign_attributes(
+    account: bar,
+    visit_date: Time.zone.parse('2018-03-05T00:00+09:00'),
+    comment: 'bad'
+  )
+end
+
+VisitRestaurant.find_or_create_by(visit_restaurant_id: 3) do |record|
   record.assign_attributes(
     account: foo,
     visit_date: Time.zone.parse('2018-03-04T00:00+09:00'),
