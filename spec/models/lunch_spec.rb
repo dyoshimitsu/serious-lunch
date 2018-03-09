@@ -39,7 +39,7 @@ RSpec.describe Lunch, type: :model do
   describe 'validation of lunch_date' do
     let(:validation) do
       lunch = FactoryBot.create :lunch
-      lunch.visit_date = visit_date
+      lunch.lunch_date = lunch_date
       lunch
     end
 
