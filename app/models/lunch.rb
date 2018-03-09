@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Lunches < ActiveRecord::Base
+class Lunch < ActiveRecord::Base
   belongs_to :account
   default_scope -> { order(lunch_date: :desc) }
 
