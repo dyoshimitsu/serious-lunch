@@ -215,12 +215,12 @@ input {
     margin-top: 5em;
     padding-top: 0;
   }
-  .lunch_day:before {
+  .lunch_date:before {
     margin-right: 5px;
     content: "\00b7";
     margin-right: 5px;
   }
-  .lunch_day {
+  .lunch_date {
     color: $gray-light;
   }
   .comment {
