@@ -1,6 +1,0 @@
-<li id="visit_restaurant-<%= visit_restaurant.visit_restaurant_id %>">
-<%= link_to gravatar_for(visit_restaurant.account, size: 50), visit_restaurant.account.account_name %>
-  <span class="account"><%= link_to visit_restaurant.account.account_name, visit_restaurant.account.account_name %></span>
-  <span class="visit_date"><%= visit_restaurant.visit_date.in_time_zone('Asia/Tokyo').strftime('%Y-%m-%d') %></span>
-  <span class="comment"><%= visit_restaurant.comment %></span>
-</li>
