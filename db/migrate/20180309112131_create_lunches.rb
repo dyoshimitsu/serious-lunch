@@ -4,7 +4,7 @@ class CreateLunches < ActiveRecord::Migration[5.2]
   def change
     create_table :lunches, :primary_key => :lunch_id do |t|
       t.bigint :account_id, null: false
-      t.datetime :lunch_date, null: false
+      t.date :lunch_date, null: false
       t.string :comment
 
       t.timestamps

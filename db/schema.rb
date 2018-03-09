@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2018_03_09_112131) do
 
   create_table "lunches", primary_key: "lunch_id", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "account_id", null: false
-    t.datetime "lunch_date", null: false
+    t.date "lunch_date", null: false
     t.string "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
