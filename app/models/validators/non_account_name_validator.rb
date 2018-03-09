@@ -48,6 +48,7 @@ class Validators::NonAccountNameValidator < ActiveModel::Validator
     logo
     logout
     lunch
+    lunches
     me
     mentions
     messages
