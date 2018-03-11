@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   resources :account_activations, param: :activation_token, only: [:edit]
   resources :password_resets, param: :reset_token, only: [:new, :create, :edit, :update]
 
+  resources :lunches, only: [:create, :destroy], param: :lunch_id
+
   get '/users', controller: :accounts, action: :index
   resources :accounts, only: [:update], param: :account_id
   resources :accounts, only: [:edit], param: :account_name
