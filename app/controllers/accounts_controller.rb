@@ -56,11 +56,4 @@ class AccountsController < ApplicationController
       :password_confirmation
     )
   end
-
-  def logged_in_account
-    return if logged_in?
-    store_location
-    flash[:danger] = 'Please log in.'
-    redirect_to login_url
-  end
 end
