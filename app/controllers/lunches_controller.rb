@@ -6,7 +6,7 @@ class LunchesController < ApplicationController
   def create
     @lunch = current_account.lunches.build(lunch_params)
     if @lunch.save
-      flash[:success] = 'Lunch post created!'
+      flash[:success] = 'Had Lunch!'
       redirect_to root_url
     else
       render 'static_pages/home'
