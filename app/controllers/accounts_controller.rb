@@ -39,7 +39,7 @@ class AccountsController < ApplicationController
   def update
     @account = Account.find(params[:account_id])
     if @account != current_account
-      redirect_to(root_url)
+      redirect_to root_url
     elsif @account.update_attributes(account_params)
       flash[:success] = 'Profile updated'
       redirect_to short_account_url(@account.account_name)
