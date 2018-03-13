@@ -15,4 +15,10 @@ class LunchesController < ApplicationController
 
   def destroy
   end
+
+  private
+
+  def lunch_params
+    params.require(:lunch).permit(:comment)
+  end
 end
