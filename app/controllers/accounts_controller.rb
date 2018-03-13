@@ -15,7 +15,11 @@ class AccountsController < ApplicationController
 
   def show
     @account = Account.find_by(account_name: params[:account_name])
-    @lunches = @account.lunches.paginate(page: params[:page])
+    if @account
+      @lunches = @account.lunches.paginate(page: params[:page])
+    else
+      render file: Rails.root.join('public/404.html'), status: 404, layout: false, content_type: 'text/html'
+    end
   end
 
   def create
