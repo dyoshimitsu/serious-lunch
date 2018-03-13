@@ -19,6 +19,9 @@ class LunchesController < ApplicationController
   private
 
   def lunch_params
-    params.require(:lunch).permit(:comment)
+    params.require(:lunch).permit(
+      :lunch_date,
+      :comment
+    )
   end
 end
