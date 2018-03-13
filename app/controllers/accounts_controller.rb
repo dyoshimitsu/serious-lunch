@@ -18,7 +18,10 @@ class AccountsController < ApplicationController
     if @account
       @lunches = @account.lunches.paginate(page: params[:page])
     else
-      render file: Rails.root.join('public/404.html'), status: 404, layout: false, content_type: 'text/html'
+      render file: Rails.root.join('public/404.html'),
+             status: 404,
+             layout: false,
+             content_type: 'text/html'
     end
   end
 
