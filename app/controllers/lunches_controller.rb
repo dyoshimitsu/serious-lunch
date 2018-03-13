@@ -4,6 +4,13 @@ class LunchesController < ApplicationController
   before_action :logged_in_account, only: [:create, :destroy]
 
   def create
+    @lunch = current_account.lunches.build(lunch_params)
+    if @lunch.save
+      flash[:success] = 'Lunch post created!'
+      redirect_to root_url
+    else
+      render 'static_pages/home'
+    end
   end
 
   def destroy
