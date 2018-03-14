@@ -7,6 +7,8 @@ class StaticPagesController < ApplicationController
   end
 
   def home
-    @lunch = current_account.lunches.build if logged_in?
+    return unless logged_in?
+    @lunch = current_account.lunches.build
+    @feed_items = current_account.feed.paginate(page: params[:page])
   end
 end
