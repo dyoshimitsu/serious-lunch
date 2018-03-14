@@ -35,6 +35,7 @@ class Validators::NonAccountNameValidator < ActiveModel::Validator
     friendrequest
     friends
     goodies
+    hello
     help
     home
     i
@@ -56,11 +57,13 @@ class Validators::NonAccountNameValidator < ActiveModel::Validator
     notifications
     nudge
     oauth
+    password_resets
     phoenix_search
     positions
     privacy
     public_timeline
     replies
+    root
     rules
     saved_searches
     search
