@@ -77,6 +77,10 @@ class Account < ApplicationRecord
     reset_sent_at < 30.minutes.ago
   end
 
+  def feed
+    Lunch.where('account_id = ?', account_id)
+  end
+
   private
 
   def create_activation_digest
