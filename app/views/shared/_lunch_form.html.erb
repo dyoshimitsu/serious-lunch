@@ -2,11 +2,13 @@
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
     <div class="controls">
+      <%= f.label :date %>
       <%= f.text_field :lunch_date,
                        data: { date_format: "YYYY-MM-DD" },
                        class: "form-control datetimepicker",
                        value: Time.zone.now.in_time_zone('Asia/Tokyo').strftime('%Y-%m-%d') %>
     </div>
+    <%= f.label :comment %>
     <%= f.text_area :comment, placeholder: "Compose lunch comment..." %>
   </div>
   <%= f.submit "Post", class: "btn btn-primary" %>
