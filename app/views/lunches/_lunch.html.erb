@@ -2,6 +2,6 @@
 <%= link_to gravatar_for(lunch.account, size: 50), lunch.account.account_name %>
   <span class="account"><%= link_to lunch.account.account_name, lunch.account.account_name %></span>
   <span class="lunch_date"><%= lunch.lunch_date %></span>
-  <span class="comment"><%= lunch.comment %></span>
+  <span class="comment"><%= simple_format(h(lunch.comment)) %></span>
   <%= link_to "delete", lunch, method: :delete, data: { confirm: "You sure?" } %>
 </li>
