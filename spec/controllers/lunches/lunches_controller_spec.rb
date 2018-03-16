@@ -5,7 +5,19 @@ require 'rails_helper'
 RSpec.describe LunchesController, :type => :controller do
 
   describe 'POST #create' do
-    let(:action) { post :create }
+    let(:action) { post :create, params: params }
+
+    let(:lunch_date) { '' }
+    let(:comment) { '' }
+    let(:params) do
+      {
+        lunch:
+        {
+          lunch_date: lunch_date,
+          comment: comment,
+        }
+      }
+    end
 
     context 'when not logged in' do
       before { action }
