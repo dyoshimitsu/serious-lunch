@@ -27,6 +27,20 @@ RSpec.describe LunchesController, :type => :controller do
         expect(response).to redirect_to(login_url)
       end
     end
+
+    context 'when logged in' do
+      include SessionsHelper
+
+      let(:account) { FactoryBot.create :account }
+      before do
+        log_in(account)
+        action
+      end
+
+      it 'should redirect' do
+        expect(response).to have_http_status(200)
+      end
+    end
   end
 
   describe 'DELETE #destroy' do
