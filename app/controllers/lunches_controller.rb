@@ -19,7 +19,7 @@ class LunchesController < ApplicationController
     redirect_to root_url if lunche.nil?
 
     lunche.destroy
-    flash[:success] = 'Micropost deleted'
+    flash[:success] = 'Lunch deleted'
     redirect_back(fallback_location: root_url)
   end
 
