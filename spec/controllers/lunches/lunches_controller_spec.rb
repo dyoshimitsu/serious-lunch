@@ -38,10 +38,11 @@ RSpec.describe LunchesController, :type => :controller do
       end
 
       context 'when parameter is valid' do
-        it 'should redirect to root' do
+        it 'create new lunch' do
           expect(response).to have_http_status(302)
           expect(response).to redirect_to(root_url)
           expect(flash[:success]).not_to be_nil
+          expect(account.lunches.count).to eq(1)
         end
       end
 
