@@ -15,7 +15,7 @@ RSpec.describe LunchesController, :type => :controller do
         {
           lunch_date: lunch_date,
           comment: comment,
-        }
+        },
       }
     end
 
