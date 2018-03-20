@@ -15,12 +15,14 @@ class LunchesController < ApplicationController
   end
 
   def destroy
-    lunche = current_account.lunches.find_by(lunch_id: params[:lunch_id])
-    redirect_to root_url if lunche.nil?
-
-    lunche.destroy
-    flash[:success] = 'Lunch deleted'
-    redirect_back(fallback_location: root_url)
+    lunch = current_account.lunches.find_by(lunch_id: params[:lunch_id])
+    if lunch.nil?
+      redirect_to root_url
+    else
+      lunch.destroy
+      flash[:success] = 'Lunch deleted'
+      redirect_back(fallback_location: root_url)
+    end
   end
 
   private
