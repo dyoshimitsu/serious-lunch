@@ -6,7 +6,7 @@ class LunchesController < ApplicationController
   def create
     @lunch = current_account.lunches.build(lunch_params)
     if @lunch.save
-      flash[:success] = 'Had Lunch!'
+      flash[:success] = 'Enjoyed Lunch!'
       redirect_to root_url
     else
       @feed_items = []
