@@ -224,6 +224,17 @@ input {
   .lunch_date {
     color: $gray-light;
   }
+  .dropdown {
+    float: right;
+    li {
+      padding: initial;
+      border-top: initial;
+    }
+    .dropdown-menu {
+      right: 0;
+      left: auto;
+    }
+  }
   .comment {
     display: block;
     margin-left: 60px;
