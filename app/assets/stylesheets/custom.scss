@@ -1,5 +1,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import 'bootstrap-datetimepicker';
 
 /* mixins, variables, etc. */
 
@@ -199,5 +200,69 @@ input {
     overflow: auto;
     padding: 10px 0;
     border-bottom: 1px solid $gray-lighter;
+  }
+}
+
+/* lunches */
+
+.lunches {
+  list-style: none;
+  padding: 0;
+  li {
+    padding: 10px 0;
+    border-top: 1px solid #e8e8e8;
+  }
+  .account {
+    margin-top: 5em;
+    padding-top: 0;
+  }
+  .lunch_date:before {
+    margin-right: 5px;
+    content: "\00b7";
+    margin-right: 5px;
+  }
+  .lunch_date {
+    color: $gray-light;
+  }
+  .dropdown {
+    float: right;
+    li {
+      padding: initial;
+      border-top: initial;
+    }
+    .dropdown-menu {
+      right: 0;
+      left: auto;
+    }
+  }
+  .comment {
+    min-height: 26px;
+    display: block;
+    margin-left: 60px;
+    img {
+      display: block;
+      padding: 5px 0;
+    }
+  }
+  .gravatar {
+    float: left;
+    margin-right: 10px;
+    margin-top: 5px;
+  }
+}
+
+aside {
+  textarea {
+    padding: 5px 5px 5px 10px;
+    border-radius: 5px;
+    height: 100px;
+    margin-bottom: 5px;
+  }
+}
+
+span.picture {
+  margin-top: 10px;
+  input {
+    border: 0;
   }
 }

@@ -2,8 +2,11 @@
 
 FactoryBot.define do
   factory :account do
-    account_name { 'foo' }
-    email_address { 'foo@example.com' }
+    sequence :account_name, &:to_s
+    sequence :email_address do |n|
+      "#{n}@example.com"
+    end
+
     password { 'password' }
     activated { true }
   end

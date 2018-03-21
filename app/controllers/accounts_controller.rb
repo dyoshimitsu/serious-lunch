@@ -15,6 +15,16 @@ class AccountsController < ApplicationController
 
   def show
     @account = Account.find_by(account_name: params[:account_name])
+    if @account
+      @lunches = @account.lunches
+                         .order(lunch_date: :desc)
+                         .paginate(page: params[:page])
+    else
+      render file: Rails.root.join('public/404.html'),
+             status: 404,
+             layout: false,
+             content_type: 'text/html'
+    end
   end
 
   def create
@@ -31,7 +41,7 @@ class AccountsController < ApplicationController
   def update
     @account = Account.find(params[:account_id])
     if @account != current_account
-      redirect_to(root_url)
+      redirect_to root_url
     elsif @account.update_attributes(account_params)
       flash[:success] = 'Profile updated'
       redirect_to short_account_url(@account.account_name)
@@ -54,12 +64,5 @@ class AccountsController < ApplicationController
       :password,
       :password_confirmation
     )
-  end
-
-  def logged_in_account
-    return if logged_in?
-    store_location
-    flash[:danger] = 'Please log in.'
-    redirect_to login_url
   end
 end

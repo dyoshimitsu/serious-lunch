@@ -33,6 +33,29 @@ RSpec.describe AccountsController, :type => :controller do
     end
   end
 
+  describe 'GET #show' do
+    before { get :show, params: params }
+
+    let(:params) do
+      {
+        account_name: account_name,
+      }
+    end
+
+    context 'when account exists' do
+      let(:account) { FactoryBot.create :account }
+      let(:account_name) { account.account_name }
+
+      it { expect(response).to have_http_status(200) }
+    end
+
+    context 'when account not exists' do
+      let(:account_name) { 'foo' }
+
+      it { expect(response).to have_http_status(404) }
+    end
+  end
+
   describe 'POST #create' do
     before { post :create, params: params }
 

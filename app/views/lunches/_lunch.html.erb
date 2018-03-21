@@ -1,0 +1,14 @@
+<li id="lunch-<%= lunch.lunch_id %>">
+<%= link_to gravatar_for(lunch.account, size: 50), lunch.account.account_name %>
+  <span class="account"><%= link_to lunch.account.account_name, lunch.account.account_name %></span>
+  <span class="lunch_date"><%= lunch.lunch_date %></span>
+  <span class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+      <li><%= link_to "Delete", lunch, method: :delete, data: { confirm: "You sure?" } %></li>
+    </ul>
+  </span>
+  <span class="comment"><%= simple_format(h(lunch.comment)) %></span>
+</li>

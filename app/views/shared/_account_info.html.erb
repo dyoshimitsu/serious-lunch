@@ -1,0 +1,3 @@
+<%= link_to gravatar_for(current_account, size: 50), current_account.account_name %>
+<h1><%= current_account.account_name %></h1>
+<span><%= pluralize(current_account.lunches.count, "lunch") %></span>
