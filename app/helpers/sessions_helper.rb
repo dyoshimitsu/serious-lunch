@@ -12,6 +12,10 @@ module SessionsHelper
     cookies.permanent[:remember_token] = account.remember_token
   end
 
+  def current_account?(account)
+    account == current_account
+  end
+
   def current_account
     if (account_id = session[:account_id])
       @current_account ||= Account.find_by(account_id: account_id)
