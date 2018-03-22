@@ -233,6 +233,11 @@ input {
     .dropdown-menu {
       right: 0;
       left: auto;
+      .delete {
+        a {
+          color: red;
+        }
+      }
     }
   }
   .comment {
