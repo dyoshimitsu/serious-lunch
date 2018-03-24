@@ -9,9 +9,8 @@ class Account < ApplicationRecord
   has_one :account_remember, dependent: :destroy
   has_one :account_reset, dependent: :destroy
 
-  attr_accessor :remember_token, :activation_token, :reset_token
+  attr_accessor :remember_token, :reset_token
   before_save { email_address.downcase! }
-  before_create :create_activation_digest
 
   validates_with Validators::NonAccountNameValidator
   validates :account_name,
@@ -82,12 +81,5 @@ class Account < ApplicationRecord
 
   def feed
     Lunch.where('account_id = ?', account_id)
-  end
-
-  private
-
-  def create_activation_digest
-    self.activation_token = Account.new_token
-    self.activation_digest = Account.digest(activation_token)
   end
 end
