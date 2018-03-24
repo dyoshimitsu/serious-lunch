@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateAccountResets < ActiveRecord::Migration[5.2]
   def up
     create_table :account_resets, id: false do |t|
