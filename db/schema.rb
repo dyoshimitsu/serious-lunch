@@ -14,11 +14,12 @@ ActiveRecord::Schema.define(version: 2018_03_24_100549) do
 
   create_table "account_activations", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "account_id", null: false
+    t.string "activation_digest", null: false
     t.boolean "activated", default: false, null: false
-    t.string "reset_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_account_activations_on_account_id"
+    t.index ["account_id"], name: "index_account_activations_on_account_id", unique: true
+    t.index ["activated"], name: "index_account_activations_on_activated"
   end
 
   create_table "account_remembers", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
@@ -26,7 +27,7 @@ ActiveRecord::Schema.define(version: 2018_03_24_100549) do
     t.string "remember_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_account_remembers_on_account_id"
+    t.index ["account_id"], name: "index_account_remembers_on_account_id", unique: true
   end
 
   create_table "account_resets", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
@@ -34,23 +35,16 @@ ActiveRecord::Schema.define(version: 2018_03_24_100549) do
     t.string "reset_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_account_resets_on_account_id"
+    t.index ["account_id"], name: "index_account_resets_on_account_id", unique: true
   end
 
   create_table "accounts", primary_key: "account_id", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "account_name", limit: 50, null: false
     t.string "email_address", null: false
     t.string "password_digest", null: false
-    t.string "remember_digest"
-    t.string "activation_digest"
-    t.boolean "activated", default: false, null: false
-    t.datetime "activated_at"
-    t.string "reset_digest"
-    t.datetime "reset_sent_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_name"], name: "index_accounts_on_account_name", unique: true
-    t.index ["activated"], name: "index_accounts_on_activated"
     t.index ["email_address"], name: "index_accounts_on_email_address", unique: true
   end
 
