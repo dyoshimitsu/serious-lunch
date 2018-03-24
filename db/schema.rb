@@ -10,7 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_03_09_112131) do
+ActiveRecord::Schema.define(version: 2018_03_24_100549) do
+
+  create_table "account_activations", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.boolean "activated", default: false, null: false
+    t.string "reset_digest", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_account_activations_on_account_id"
+  end
+
+  create_table "account_remembers", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "remember_digest", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_account_remembers_on_account_id"
+  end
+
+  create_table "account_resets", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "reset_digest", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_account_resets_on_account_id"
+  end
 
   create_table "accounts", primary_key: "account_id", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "account_name", limit: 50, null: false
@@ -39,5 +64,8 @@ ActiveRecord::Schema.define(version: 2018_03_09_112131) do
     t.index ["account_id", "lunch_date"], name: "index_lunches_on_account_id_and_lunch_date"
   end
 
+  add_foreign_key "account_activations", "accounts", primary_key: "account_id"
+  add_foreign_key "account_remembers", "accounts", primary_key: "account_id"
+  add_foreign_key "account_resets", "accounts", primary_key: "account_id"
   add_foreign_key "lunches", "accounts", primary_key: "account_id"
 end
