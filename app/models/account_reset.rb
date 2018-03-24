@@ -1,0 +1,2 @@
+class AccountReset < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class AccountRemember < ApplicationRecord
+end
