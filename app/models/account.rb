@@ -28,29 +28,9 @@ class Account < ApplicationRecord
             format: { with: VALID_EMAIL_ADDRESS_REGEX },
             uniqueness: { case_sensitive: false }
 
-  def self.digest(string)
-    cost =
-      if ActiveModel::SecurePassword.min_cost
-        BCrypt::Engine::MIN_COST
-      else
-        BCrypt::Engine.cost
-      end
-    BCrypt::Password.create(string, cost: cost)
-  end
-
-  def self.new_token
-    SecureRandom.urlsafe_base64
-  end
-
   def remember
     self.remember_token = Account.new_token
     update_attribute(:remember_digest, Account.digest(remember_token))
-  end
-
-  def authenticated?(attribute, token)
-    digest = send("#{attribute}_digest")
-    return false if digest.nil?
-    BCrypt::Password.new(digest).is_password?(token)
   end
 
   def forget
