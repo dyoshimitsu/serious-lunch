@@ -8,6 +8,5 @@ FactoryBot.define do
     end
 
     password { 'password' }
-    activated { true }
   end
 end
