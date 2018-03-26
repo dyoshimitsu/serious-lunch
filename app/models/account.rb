@@ -27,15 +27,6 @@ class Account < ApplicationRecord
             format: { with: VALID_EMAIL_ADDRESS_REGEX },
             uniqueness: { case_sensitive: false }
 
-  def remember
-    self.remember_token = Account.new_token
-    update_attribute(:remember_digest, Account.digest(remember_token))
-  end
-
-  def forget
-    update_attribute(:remember_digest, nil)
-  end
-
   def send_activation_email
     AccountMailer.account_activation(self).deliver_now
   end
