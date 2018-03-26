@@ -17,43 +17,8 @@ class CreateAccountActivations < ActiveRecord::Migration[5.2]
                     :accounts,
                     primary_key: :account_id
 
-    sql = <<~SQL
-      INSERT INTO account_activations (
-        account_id,
-        activation_digest,
-        activated,
-        created_at,
-        updated_at
-      )
-        SELECT
-          account_id,
-          activation_digest,
-          activated,
-          created_at,
-          activated_at
-        FROM accounts
-        WHERE activated = TRUE
-    SQL
-    ActiveRecord::Base.connection.execute(sql)
-
-    sql = <<~SQL
-      INSERT INTO account_activations (
-        account_id,
-        activation_digest,
-        activated,
-        created_at,
-        updated_at
-      )
-        SELECT
-          account_id,
-          activation_digest,
-          activated,
-          created_at,
-          created_at
-        FROM accounts
-        WHERE activated = FALSE
-    SQL
-    ActiveRecord::Base.connection.execute(sql)
+    ActiveRecord::Base.connection.execute(upload_sql_when_activated_is_true)
+    ActiveRecord::Base.connection.execute(upload_sql_when_activated_is_false)
 
     remove_column :accounts, :activated_at
     remove_column :accounts, :activated
@@ -72,7 +37,56 @@ class CreateAccountActivations < ActiveRecord::Migration[5.2]
 
     add_index :accounts, :activated
 
-    sql = <<~SQL
+    ActiveRecord::Base.connection.execute(download_sql_when_activated_is_true)
+    ActiveRecord::Base.connection.execute(download_sql_when_activated_is_false)
+
+    drop_table :account_activations
+  end
+
+  private
+
+  def upload_sql_when_activated_is_true
+    <<~SQL
+      INSERT INTO account_activations (
+        account_id,
+        activation_digest,
+        activated,
+        created_at,
+        updated_at
+      )
+        SELECT
+          account_id,
+          activation_digest,
+          activated,
+          created_at,
+          activated_at
+        FROM accounts
+        WHERE activated = TRUE
+    SQL
+  end
+
+  def upload_sql_when_activated_is_false
+    <<~SQL
+      INSERT INTO account_activations (
+        account_id,
+        activation_digest,
+        activated,
+        created_at,
+        updated_at
+      )
+        SELECT
+          account_id,
+          activation_digest,
+          activated,
+          created_at,
+          created_at
+        FROM accounts
+        WHERE activated = FALSE
+    SQL
+  end
+
+  def download_sql_when_activated_is_true
+    <<~SQL
       UPDATE
           accounts,
           account_activations
@@ -84,9 +98,10 @@ class CreateAccountActivations < ActiveRecord::Migration[5.2]
         accounts.account_id = account_activations.account_id AND
         account_activations.activated = TRUE
     SQL
-    ActiveRecord::Base.connection.execute(sql)
+  end
 
-    sql = <<~SQL
+  def download_sql_when_activated_is_false
+    <<~SQL
       UPDATE
           accounts,
           account_activations
@@ -96,8 +111,5 @@ class CreateAccountActivations < ActiveRecord::Migration[5.2]
         accounts.account_id = account_activations.account_id AND
         account_activations.activated = FALSE
     SQL
-    ActiveRecord::Base.connection.execute(sql)
-
-    drop_table :account_activations
   end
 end

@@ -15,7 +15,24 @@ class CreateAccountRemembers < ActiveRecord::Migration[5.2]
                     :accounts,
                     primary_key: :account_id
 
-    sql = <<~SQL
+    ActiveRecord::Base.connection.execute(upload_sql)
+
+    remove_column :accounts, :remember_digest
+  end
+
+  def down
+    add_column :accounts, :remember_digest, :string,
+               after: :password_digest
+
+    ActiveRecord::Base.connection.execute(download_sql)
+
+    drop_table :account_remembers
+  end
+
+  private
+
+  def upload_sql
+    <<~SQL
       INSERT INTO account_remembers (
         account_id,
         remember_digest,
@@ -30,16 +47,10 @@ class CreateAccountRemembers < ActiveRecord::Migration[5.2]
         FROM accounts
         WHERE remember_digest IS NOT NULL
     SQL
-    ActiveRecord::Base.connection.execute(sql)
-
-    remove_column :accounts, :remember_digest
   end
 
-  def down
-    add_column :accounts, :remember_digest, :string,
-               after: :password_digest
-
-    sql = <<~SQL
+  def download_sql
+    <<~SQL
       UPDATE
           accounts,
           account_remembers
@@ -48,8 +59,5 @@ class CreateAccountRemembers < ActiveRecord::Migration[5.2]
       WHERE
         accounts.account_id = account_remembers.account_id
     SQL
-    ActiveRecord::Base.connection.execute(sql)
-
-    drop_table :account_remembers
   end
 end
