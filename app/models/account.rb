@@ -36,10 +36,6 @@ class Account < ApplicationRecord
     update_attribute(:remember_digest, nil)
   end
 
-  def activate
-    update_columns(activated: true, activated_at: Time.zone.now)
-  end
-
   def send_activation_email
     AccountMailer.account_activation(self).deliver_now
   end

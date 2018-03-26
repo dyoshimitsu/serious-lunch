@@ -10,6 +10,10 @@ class AccountActivation < ApplicationRecord
     Account::Authenticator.authenticated?(activation_digest, activation_token)
   end
 
+  def activate
+    update_attribute(activated, true)
+  end
+
   private
 
   def create_activation_digest

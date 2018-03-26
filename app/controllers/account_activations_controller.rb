@@ -7,7 +7,7 @@ class AccountActivationsController < ApplicationController
     if account &&
        !account.activated? &&
        account.authenticated?(:activation, params[:activation_token])
-      account.activate
+      account.account_activation.activate
       log_in account
       flash[:success] = 'Account activated!'
       redirect_to short_account_url(account.account_name)
