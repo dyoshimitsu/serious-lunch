@@ -9,7 +9,7 @@ class AccountActivation < ApplicationRecord
   private
 
   def create_activation_digest
-    self.activation_token = Account.new_token
-    self.activation_digest = Account.digest(activation_token)
+    self.activation_token = Account::Authenticator.new_token
+    self.activation_digest = Account::Authenticator.digest(activation_token)
   end
 end
