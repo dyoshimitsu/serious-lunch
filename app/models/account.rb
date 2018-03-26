@@ -27,16 +27,6 @@ class Account < ApplicationRecord
             format: { with: VALID_EMAIL_ADDRESS_REGEX },
             uniqueness: { case_sensitive: false }
 
-  def create_reset_digest
-    self.reset_token = Account.new_token
-    update_columns(reset_digest: Account.digest(reset_token),
-                   reset_sent_at: Time.zone.now)
-  end
-
-  def password_reset_expired?
-    reset_sent_at < 30.minutes.ago
-  end
-
   def feed
     Lunch.where('account_id = ?', account_id)
   end
