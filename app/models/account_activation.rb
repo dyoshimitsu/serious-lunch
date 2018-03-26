@@ -6,7 +6,7 @@ class AccountActivation < ApplicationRecord
   attr_accessor :activation_token
   before_create :create_activation_digest
 
-  def authenticated?
+  def authenticated?(activation_token)
     Account::Authenticator.authenticated?(activation_digest, activation_token)
   end
 
