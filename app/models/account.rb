@@ -27,18 +27,10 @@ class Account < ApplicationRecord
             format: { with: VALID_EMAIL_ADDRESS_REGEX },
             uniqueness: { case_sensitive: false }
 
-  def send_activation_email
-    AccountMailer.account_activation(self).deliver_now
-  end
-
   def create_reset_digest
     self.reset_token = Account.new_token
     update_columns(reset_digest: Account.digest(reset_token),
                    reset_sent_at: Time.zone.now)
-  end
-
-  def send_password_reset_email
-    AccountMailer.password_reset(self).deliver_now
   end
 
   def password_reset_expired?
