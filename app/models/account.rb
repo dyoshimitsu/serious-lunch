@@ -9,7 +9,6 @@ class Account < ApplicationRecord
   has_one :account_remember, dependent: :destroy
   has_one :account_reset, dependent: :destroy
 
-  attr_accessor :remember_token, :reset_token
   before_save { email_address.downcase! }
 
   validates_with Validators::NonAccountNameValidator
