@@ -30,8 +30,7 @@ class AccountsController < ApplicationController
   def create
     @account = Account.new(account_params)
     if @account.save
-      AccountActivation.create(account_id: @account.account_id)
-      Account::AccountMailer.new(account: @account).send_activation_email
+      @account.send_activation_email
       flash[:info] = 'Please check your email to activate your account.'
       redirect_to root_url
     else
