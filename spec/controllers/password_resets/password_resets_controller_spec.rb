@@ -29,21 +29,8 @@ RSpec.describe PasswordResetsController, :type => :controller do
       let(:email_address) { account.email_address }
 
       it 'should reset_digest updated' do
-        # expect do
-        #   account.account_reset.reload
-        # end.to change{
-        #   account.reset_digest.nil?
-        # }.from(true).to(false)
         expect(account.account_reset.reset_digest).not_to be_nil
       end
-
-      # it 'should reset_sent_at updated' do
-      #   expect do
-      #     account.reload
-      #   end.to change{
-      #     account.reset_sent_at.nil?
-      #   }.from(true).to(false)
-      # end
 
       it 'should be redirected to root' do
         expect(response).to have_http_status(302)
