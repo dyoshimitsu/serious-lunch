@@ -5,7 +5,7 @@ class AccountRemember < ApplicationRecord
 
   attr_accessor :remember_token
 
-  def authenticated?
+  def authenticated?(remember_token)
     Account::Authenticator.authenticated?(remember_digest, remember_token)
   end
 

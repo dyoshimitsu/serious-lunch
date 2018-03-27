@@ -5,7 +5,7 @@ class AccountReset < ApplicationRecord
 
   attr_accessor :reset_token
 
-  def authenticated?
+  def authenticated?(reset_token)
     Account::Authenticator.authenticated?(reset_digest, reset_token)
   end
 
