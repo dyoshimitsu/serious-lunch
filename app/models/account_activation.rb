@@ -7,7 +7,7 @@ class AccountActivation < ApplicationRecord
   before_create :create_activation_digest
 
   def authenticated?(activation_token)
-    Account::Authenticator.authenticated?(activation_digest, activation_token)
+    Account::AccountAuthenticator.authenticated?(activation_digest, activation_token)
   end
 
   def activate
@@ -17,7 +17,7 @@ class AccountActivation < ApplicationRecord
   private
 
   def create_activation_digest
-    self.activation_token = Account::Authenticator.new_token
-    self.activation_digest = Account::Authenticator.digest(activation_token)
+    self.activation_token = Account::AccountAuthenticator.new_token
+    self.activation_digest = Account::AccountAuthenticator.digest(activation_token)
   end
 end
