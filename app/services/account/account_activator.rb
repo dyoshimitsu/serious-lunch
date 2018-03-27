@@ -13,4 +13,8 @@ class Account::AccountActivator
     )
     Account::AccountMailer.new(account: account).send_activation_email
   end
+
+  def account_activate
+    account.account_activation.update_attribute(activated: true)
+  end
 end
