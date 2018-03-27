@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Account::Mailer
+class Account::AccountMailer
   include Virtus.model
 
   attribute :account, Account, reader: :private

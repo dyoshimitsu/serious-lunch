@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Account::Authenticator
+class Account::AccountAuthenticator
   class << self
     def digest(string)
       cost =
