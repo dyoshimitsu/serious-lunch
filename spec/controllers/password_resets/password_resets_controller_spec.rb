@@ -88,7 +88,7 @@ RSpec.describe PasswordResetsController, :type => :controller do
     end
 
     context 'when account is not activated' do
-      let(:account) { FactoryBot.create :account, activated: false }
+      let(:account) { FactoryBot.create :account }
 
       it 'should be redirected to root' do
         expect(response).to have_http_status(302)
