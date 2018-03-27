@@ -6,10 +6,10 @@ class Account::AccountMailer
   attribute :account, Account, reader: :private
 
   def send_activation_email
-    AccountMailer.account_activation(account).deliver_now
+    ::AccountMailer.account_activation(account).deliver_now
   end
 
   def send_password_reset_email
-    AccountMailer.password_reset(account).deliver_now
+    ::AccountMailer.password_reset(account).deliver_now
   end
 end
