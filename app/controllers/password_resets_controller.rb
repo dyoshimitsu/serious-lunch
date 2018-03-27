@@ -10,7 +10,7 @@ class PasswordResetsController < ApplicationController
     )
     if account
       account.create_reset_digest
-      Account::Mailer.new(account).send_password_reset_email
+      Account::Mailer.new(account: account).send_password_reset_email
       flash[:info] = 'Email sent with password reset instructions'
       redirect_to root_url
     else
