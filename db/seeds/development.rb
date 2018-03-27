@@ -11,7 +11,8 @@ end
 AccountActivation.find_or_create_by(account_id: foo.account_id) do |record|
   record.assign_attributes(
     account: foo,
-    activated: true
+    activated: true,
+    activation_digest: ''
   )
 end
 
@@ -26,7 +27,8 @@ end
 AccountActivation.find_or_create_by(account_id: bar.account_id) do |record|
   record.assign_attributes(
     account: bar,
-    activated: true
+    activated: true,
+    activation_digest: ''
   )
 end
 
