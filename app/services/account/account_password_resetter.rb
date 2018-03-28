@@ -13,4 +13,8 @@ class Account::AccountPasswordResetter
     )
     Account::AccountMailer.new(account: account).send_password_reset_email
   end
+
+  def password_reset_expired?
+    account&.account_reset.updated_at < 30.minutes.ago
+  end
 end
