@@ -50,7 +50,7 @@ RSpec.describe PasswordResetsController, :type => :controller do
   describe 'PATCH #update' do
     let(:action) { patch :update, params: params }
 
-    let(:account) { FactoryBot.create :account }
+    let(:account) { FactoryBot.create :account, :with_account_activation }
 
     let(:create_reset_digest) do
       Account::AccountPasswordResetter.new(account: account).account_password_reset
@@ -107,8 +107,8 @@ RSpec.describe PasswordResetsController, :type => :controller do
 
     context 'when 30 minutes have passed since send of reset token' do
       let(:create_reset_digest) do
-        account.create_reset_digest
-        account.reset_sent_at -= 30.minutes
+        Account::AccountPasswordResetter.new(account: account).account_password_reset
+        account.account_reset.updated_at -= 30.minutes
         account.save
       end
 
