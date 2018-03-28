@@ -42,15 +42,16 @@ class PasswordResetsController < ApplicationController
   end
 
   def valid_account
-    account = Account.find_by(email_address: params[:email_address])
-    unless Account::AccountActivator.new(account: account).account_activated? &&
-      Account::AccountAuthenticator.new(account: account).reset_authenticated?(params[:reset_token])
+    @account ||= Account.find_by(email_address: params[:email_address])
+    unless Account::AccountActivator.new(account: @account).account_activated? &&
+      Account::AccountAuthenticator.new(account: @account).reset_authenticated?(params[:reset_token])
       redirect_to root_url
     end
   end
 
   def check_expiration
-    return unless @account.password_reset_expired?
+    @account ||= Account.find_by(email_address: params[:email_address])
+    return unless Account::AccountPasswordResetter.new(account: @account).password_reset_expired?
     flash[:danger] = 'Password reset has expired.'
     redirect_to new_password_reset_url
   end
