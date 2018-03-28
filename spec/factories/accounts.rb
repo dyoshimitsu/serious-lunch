@@ -8,5 +8,11 @@ FactoryBot.define do
     end
 
     password { 'password' }
+
+    trait :with_account_activation do
+      after(:create) do |account|
+        create(:account_activation, account: account)
+      end
+    end
   end
 end
