@@ -13,7 +13,7 @@ RSpec.describe SessionsController, :type => :controller do
   describe 'POST #create' do
     before { post :create, params: params }
 
-    let(:account) { FactoryBot.create :account }
+    let(:account) { FactoryBot.create :account, :with_account_activation }
     let(:email_address) { account.email_address }
     let(:password) { account.password }
 
@@ -29,7 +29,7 @@ RSpec.describe SessionsController, :type => :controller do
 
     context 'when parameter is valid' do
       context 'when account is not activated' do
-        let(:account) { FactoryBot.create :account, activated: false }
+        let(:account) { FactoryBot.create :account }
 
         it 'fail in login' do
           expect(response).to have_http_status(302)
