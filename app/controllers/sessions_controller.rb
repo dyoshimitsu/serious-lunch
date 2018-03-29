@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
 
   def account_authenticate(params, account)
     if account&.authenticate(params[:session][:password])
-      if account.activated?
+      if Account::AccountActivator.new(account: account).account_activated?
         log_in account
         params[:session][:remember_me] == '1' ? remember(account) : forget(account)
         redirect_back_or short_account_url(account.account_name)
