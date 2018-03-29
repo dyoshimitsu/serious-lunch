@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class CreateAccountRemembers < ActiveRecord::Migration[5.2]
+class CreateAccountCookies < ActiveRecord::Migration[5.2]
   def up
-    create_table :account_remembers, id: false do |t|
+    create_table :account_cookies, id: false do |t|
       t.bigint :account_id, null: false
       t.string :remember_digest, null: false
 
@@ -11,7 +11,7 @@ class CreateAccountRemembers < ActiveRecord::Migration[5.2]
       t.index :account_id, unique: true
     end
 
-    add_foreign_key :account_remembers,
+    add_foreign_key :account_cookies,
                     :accounts,
                     primary_key: :account_id
 
@@ -26,14 +26,14 @@ class CreateAccountRemembers < ActiveRecord::Migration[5.2]
 
     ActiveRecord::Base.connection.execute(download_sql)
 
-    drop_table :account_remembers
+    drop_table :account_cookies
   end
 
   private
 
   def upload_sql
     <<~SQL
-      INSERT INTO account_remembers (
+      INSERT INTO account_cookies (
         account_id,
         remember_digest,
         created_at,
@@ -53,11 +53,11 @@ class CreateAccountRemembers < ActiveRecord::Migration[5.2]
     <<~SQL
       UPDATE
           accounts,
-          account_remembers
+          account_cookies
       SET
-        accounts.remember_digest = account_remembers.remember_digest
+        accounts.remember_digest = account_cookies.remember_digest
       WHERE
-        accounts.account_id = account_remembers.account_id
+        accounts.account_id = account_cookies.account_id
     SQL
   end
 end

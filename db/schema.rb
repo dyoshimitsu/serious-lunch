@@ -22,12 +22,12 @@ ActiveRecord::Schema.define(version: 2018_03_24_100549) do
     t.index ["activated"], name: "index_account_activations_on_activated"
   end
 
-  create_table "account_remembers", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+  create_table "account_cookies", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.string "remember_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_account_remembers_on_account_id", unique: true
+    t.index ["account_id"], name: "index_account_cookies_on_account_id", unique: true
   end
 
   create_table "account_resets", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 2018_03_24_100549) do
   end
 
   add_foreign_key "account_activations", "accounts", primary_key: "account_id"
-  add_foreign_key "account_remembers", "accounts", primary_key: "account_id"
+  add_foreign_key "account_cookies", "accounts", primary_key: "account_id"
   add_foreign_key "account_resets", "accounts", primary_key: "account_id"
   add_foreign_key "lunches", "accounts", primary_key: "account_id"
 end
