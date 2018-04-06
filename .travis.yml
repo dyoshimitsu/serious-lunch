@@ -12,6 +12,7 @@ cache: bundler
 bundler_args: --without production --deployment --path=vendor/bundle
 before_install:
   - gem update --system
+  - gem install bundler
   - gem --version
   - sudo service mysql stop
     && $TRAVIS_BUILD_DIR/scripts/travis_start_containers.sh
