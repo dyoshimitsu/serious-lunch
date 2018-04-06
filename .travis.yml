@@ -18,6 +18,7 @@ before_install:
     && $TRAVIS_BUILD_DIR/scripts/travis_wait_containers.sh mysql
     && ln -s /var/run/mysqld/mysqld.sock "${DATABASE_SOCKET:-/tmp/mysql.sock}"
 script:
+  - ls -la /home/travis/.rvm/rubies/ruby-2.5.1/lib/ruby/
   - bin/rails db:create db:migrate RAILS_ENV=test
   - bundle exec rubocop
   - bundle exec rspec
