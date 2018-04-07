@@ -44,7 +44,7 @@ class PasswordResetsController < ApplicationController
   def valid_account
     @account ||= Account.find_by(email_address: params[:email_address])
     unless Account::AccountActivator.new(account: @account).account_activated? &&
-      Account::AccountAuthenticator.new(account: @account).reset_authenticated?(params[:reset_token])
+           Account::AccountAuthenticator.new(account: @account).reset_authenticated?(params[:reset_token])
       redirect_to root_url
     end
   end
