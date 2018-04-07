@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-  - 2.5.0
+  - 2.5.1
 sudo: required
 dist: trusty
 services:
@@ -13,6 +13,7 @@ bundler_args: --without production --deployment --path=vendor/bundle
 before_install:
   - gem update --system
   - gem --version
+  - gem install bundler
   - sudo service mysql stop
     && $TRAVIS_BUILD_DIR/scripts/travis_start_containers.sh
     && $TRAVIS_BUILD_DIR/scripts/travis_wait_containers.sh mysql
