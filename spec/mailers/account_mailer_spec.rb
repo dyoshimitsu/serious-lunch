@@ -23,7 +23,7 @@ RSpec.describe AccountMailer, type: :mailer do
   describe 'password_reset' do
     let(:account) { FactoryBot.create :account }
     let(:mail) do
-      account.create_reset_digest
+      Account::AccountPasswordResetter.new(account: account).account_password_reset
       AccountMailer.password_reset(account)
     end
 
