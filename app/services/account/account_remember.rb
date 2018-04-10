@@ -14,6 +14,6 @@ class Account::AccountRemember
   end
 
   def account_forget
-    AccountCookie.delete(account_id: @account)
+    AccountCookie.delete(account_id: account)
   end
 end
