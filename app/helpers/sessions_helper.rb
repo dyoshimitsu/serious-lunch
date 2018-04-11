@@ -7,7 +7,7 @@ module SessionsHelper
   end
 
   def remember(account)
-    account.remember
+    Account::AccountRemember.new(account: account).account_remember
     cookies.permanent.signed[:account_id] = account.account_id
     cookies.permanent[:remember_token] = account.remember_token
   end
@@ -33,7 +33,7 @@ module SessionsHelper
   end
 
   def forget(account)
-    account.forget
+    Account::AccountRemember.new(account: account).account_forget
     cookies.delete(:account_id)
     cookies.delete(:remember_token)
   end
