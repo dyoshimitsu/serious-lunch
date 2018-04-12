@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AccountRemember < ApplicationRecord
+class AccountCookie < ApplicationRecord
   belongs_to :account
 
 end

@@ -6,7 +6,7 @@ class Account < ApplicationRecord
   has_secure_password
   has_many :lunches, dependent: :destroy
   has_one :account_activation, dependent: :destroy
-  has_one :account_remember, dependent: :destroy
+  has_one :account_cookie, dependent: :destroy
   has_one :account_reset, dependent: :destroy
 
   attr_accessor :remember_token, :activation_token, :reset_token
