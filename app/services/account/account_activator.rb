@@ -15,7 +15,7 @@ class Account::AccountActivator
   end
 
   def account_activate
-    account.account_activation.update_attribute(activated: true)
+    account.account_activation.update!(activated: true)
   end
 
   def account_activated?
