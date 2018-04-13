@@ -108,7 +108,8 @@ RSpec.describe PasswordResetsController, :type => :controller do
     context 'when 30 minutes have passed since send of reset token' do
       let(:create_reset_digest) do
         Account::AccountPasswordResetter.new(account: account).account_password_reset
-        AccountReset.where(account_id: account).update_all(updated_at: Time.zone.now - 30.minutes)
+        AccountReset.where(account_id: account)
+                    .update_all(updated_at: Time.zone.now - 30.minutes)
       end
 
       it 'should be redirected to new_password_reset_url' do
