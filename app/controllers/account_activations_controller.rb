@@ -7,7 +7,9 @@ class AccountActivationsController < ApplicationController
     activator = Account::AccountActivator.new(account: account)
     if account &&
        !activator.account_activated? &&
-       Account::AccountAuthenticator.new(account: account).activation_authenticated?(params[:activation_token])
+       Account::AccountAuthenticator.new(
+         account: account
+       ).activation_authenticated?(params[:activation_token])
       activator.account_activate
       log_in account
       flash[:success] = 'Account activated!'
