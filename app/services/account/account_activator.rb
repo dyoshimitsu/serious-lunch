@@ -15,7 +15,8 @@ class Account::AccountActivator
   end
 
   def account_activate
-    account.account_activation.update!(activated: true)
+    AccountActivation.where(account: account)
+                     .update_all(activated: true, updated_at: Time.now)
   end
 
   def account_activated?
