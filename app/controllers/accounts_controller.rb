@@ -8,7 +8,8 @@ class AccountsController < ApplicationController
   end
 
   def index
-    @accounts = Account.where(activated: true)
+    @accounts = Account.left_outer_joins(:account_activation)
+                       .where(account_activations: { activated: true })
                        .paginate(page: params[:page])
                        .order(:account_name)
   end
