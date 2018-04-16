@@ -21,7 +21,8 @@ module SessionsHelper
       @current_account ||= Account.find_by(account_id: account_id)
     elsif (account_id = cookies.signed[:account_id])
       account = Account.find_by(account_id: account_id)
-      if account&.authenticated?(:remember, cookies[:remember_token])
+      if Account::AccountAuthenticator.new(account: account)
+                                      .remember_authenticated?(params[:remember_token])
         log_in account
         @current_account = account
       end
