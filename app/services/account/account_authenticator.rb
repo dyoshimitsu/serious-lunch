@@ -25,7 +25,7 @@ class Account::AccountAuthenticator
     authenticated?(account&.account_activation&.activation_digest, activation_token)
   end
 
-  def remenber_authenticated?(remember_token)
+  def remember_authenticated?(remember_token)
     authenticated?(account&.account_remember&.remember_digest, remember_token)
   end
 
