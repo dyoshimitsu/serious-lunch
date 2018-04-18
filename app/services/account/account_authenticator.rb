@@ -24,7 +24,7 @@ class Account::AccountAuthenticator
   def activation_authenticated?(activation_token)
     digest = account&.account_activation&.activation_digest
     if digest
-      authenticated?(digestt, activation_token)
+      authenticated?(digest, activation_token)
     else
       false
     end
@@ -33,7 +33,7 @@ class Account::AccountAuthenticator
   def remember_authenticated?(remember_token)
     digest = account&.account_cookie&.remember_digest
     if digest
-      authenticated?(digestt, remember_token)
+      authenticated?(digest, remember_token)
     else
       false
     end
@@ -42,7 +42,7 @@ class Account::AccountAuthenticator
   def reset_authenticated?(reset_token)
     digest = account&.account_reset&.reset_digest
     if digest
-      authenticated?(digestt, reset_token)
+      authenticated?(digest, reset_token)
     else
       false
     end
