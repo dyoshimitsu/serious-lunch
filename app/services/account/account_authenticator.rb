@@ -22,15 +22,30 @@ class Account::AccountAuthenticator
   end
 
   def activation_authenticated?(activation_token)
-    authenticated?(account&.account_activation&.activation_digest, activation_token)
+    digest = account&.account_activation&.activation_digest
+    if digest
+      authenticated?(digestt, activation_token)
+    else
+      false
+    end
   end
 
   def remember_authenticated?(remember_token)
-    authenticated?(account&.account_remember&.remember_digest, remember_token)
+    digest = account&.account_cookie&.remember_digest
+    if digest
+      authenticated?(digestt, remember_token)
+    else
+      false
+    end
   end
 
   def reset_authenticated?(reset_token)
-    authenticated?(account&.account_reset&.reset_digest, reset_token)
+    digest = account&.account_reset&.reset_digest
+    if digest
+      authenticated?(digestt, reset_token)
+    else
+      false
+    end
   end
 
   private
