@@ -22,35 +22,21 @@ class Account::AccountAuthenticator
   end
 
   def activation_authenticated?(activation_token)
-    digest = account&.account_activation&.activation_digest
-    if digest
-      authenticated?(digest, activation_token)
-    else
-      false
-    end
+    authenticated?(account&.account_activation&.activation_digest, activation_token)
   end
 
   def remember_authenticated?(remember_token)
-    digest = account&.account_cookie&.remember_digest
-    if digest
-      authenticated?(digest, remember_token)
-    else
-      false
-    end
+    authenticated?(account&.account_cookie&.remember_digest, remember_token)
   end
 
   def reset_authenticated?(reset_token)
-    digest = account&.account_reset&.reset_digest
-    if digest
-      authenticated?(digest, reset_token)
-    else
-      false
-    end
+    authenticated?(account&.account_reset&.reset_digest, reset_token)
   end
 
   private
 
   def authenticated?(digest, token)
+    return false if digest.nil?
     BCrypt::Password.new(digest).is_password?(token)
   end
 end
