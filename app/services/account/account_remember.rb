@@ -9,7 +9,7 @@ class Account::AccountRemember
     account.remember_token = Account::AccountAuthenticator.new_token
     AccountCookie.create(
       account_id: account.account_id,
-      reset_digest: Account::AccountAuthenticator.digest(account.remember_token)
+      remember_digest: Account::AccountAuthenticator.digest(account.remember_token)
     )
   end
 
