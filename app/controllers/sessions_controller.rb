@@ -26,6 +26,7 @@ class SessionsController < ApplicationController
   def account_activated?(account)
     if Account::AccountActivator.new(account: account).account_activated?
       log_in account
+      account_remember(account)
       redirect_back_or short_account_url(account.account_name)
     else
       flash[:warning] = 'Account not activated. Check your email for the activation link.'
