@@ -10,22 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_03_09_112131) do
+ActiveRecord::Schema.define(version: 2018_03_24_100549) do
+
+  create_table "account_activations", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "activation_digest", null: false
+    t.boolean "activated", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_account_activations_on_account_id", unique: true
+    t.index ["activated"], name: "index_account_activations_on_activated"
+  end
+
+  create_table "account_cookies", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "remember_digest", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_account_cookies_on_account_id", unique: true
+  end
+
+  create_table "account_resets", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "reset_digest", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_account_resets_on_account_id", unique: true
+  end
 
   create_table "accounts", primary_key: "account_id", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "account_name", limit: 50, null: false
     t.string "email_address", null: false
     t.string "password_digest", null: false
-    t.string "remember_digest"
-    t.string "activation_digest"
-    t.boolean "activated", default: false, null: false
-    t.datetime "activated_at"
-    t.string "reset_digest"
-    t.datetime "reset_sent_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_name"], name: "index_accounts_on_account_name", unique: true
-    t.index ["activated"], name: "index_accounts_on_activated"
     t.index ["email_address"], name: "index_accounts_on_email_address", unique: true
   end
 
@@ -39,5 +58,8 @@ ActiveRecord::Schema.define(version: 2018_03_09_112131) do
     t.index ["account_id", "lunch_date"], name: "index_lunches_on_account_id_and_lunch_date"
   end
 
+  add_foreign_key "account_activations", "accounts", primary_key: "account_id"
+  add_foreign_key "account_cookies", "accounts", primary_key: "account_id"
+  add_foreign_key "account_resets", "accounts", primary_key: "account_id"
   add_foreign_key "lunches", "accounts", primary_key: "account_id"
 end

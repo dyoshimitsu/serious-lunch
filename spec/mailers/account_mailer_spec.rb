@@ -5,7 +5,10 @@ require 'rails_helper'
 RSpec.describe AccountMailer, type: :mailer do
   describe 'account_activation' do
     let(:account) { FactoryBot.create :account }
-    let(:mail) { AccountMailer.account_activation(account) }
+    let(:mail) do
+      Account::AccountActivator.new(account: account).account_activation
+      AccountMailer.account_activation(account)
+    end
 
     it 'renders the headers' do
       expect(mail.subject).to eq('Account activation')
@@ -23,7 +26,7 @@ RSpec.describe AccountMailer, type: :mailer do
   describe 'password_reset' do
     let(:account) { FactoryBot.create :account }
     let(:mail) do
-      account.create_reset_digest
+      Account::AccountPasswordResetter.new(account: account).account_password_reset
       AccountMailer.password_reset(account)
     end
 

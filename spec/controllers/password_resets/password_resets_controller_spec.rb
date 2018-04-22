@@ -29,19 +29,7 @@ RSpec.describe PasswordResetsController, :type => :controller do
       let(:email_address) { account.email_address }
 
       it 'should reset_digest updated' do
-        expect do
-          account.reload
-        end.to change{
-          account.reset_digest.nil?
-        }.from(true).to(false)
-      end
-
-      it 'should reset_sent_at updated' do
-        expect do
-          account.reload
-        end.to change{
-          account.reset_sent_at.nil?
-        }.from(true).to(false)
+        expect(account.account_reset.reset_digest).not_to be_nil
       end
 
       it 'should be redirected to root' do
@@ -62,10 +50,10 @@ RSpec.describe PasswordResetsController, :type => :controller do
   describe 'PATCH #update' do
     let(:action) { patch :update, params: params }
 
-    let(:account) { FactoryBot.create :account }
+    let(:account) { FactoryBot.create :account, :with_account_activation }
 
     let(:create_reset_digest) do
-      account.create_reset_digest
+      Account::AccountPasswordResetter.new(account: account).account_password_reset
     end
 
     let(:reset_token) { account.reset_token }
@@ -100,7 +88,7 @@ RSpec.describe PasswordResetsController, :type => :controller do
     end
 
     context 'when account is not activated' do
-      let(:account) { FactoryBot.create :account, activated: false }
+      let(:account) { FactoryBot.create :account }
 
       it 'should be redirected to root' do
         expect(response).to have_http_status(302)
@@ -119,9 +107,9 @@ RSpec.describe PasswordResetsController, :type => :controller do
 
     context 'when 30 minutes have passed since send of reset token' do
       let(:create_reset_digest) do
-        account.create_reset_digest
-        account.reset_sent_at -= 30.minutes
-        account.save
+        Account::AccountPasswordResetter.new(account: account).account_password_reset
+        AccountReset.where(account_id: account)
+                    .update_all(updated_at: Time.zone.now - 30.minutes)
       end
 
       it 'should be redirected to new_password_reset_url' do
