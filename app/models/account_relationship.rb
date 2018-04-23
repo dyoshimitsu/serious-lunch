@@ -1,0 +1,2 @@
+class AccountRelationship < ApplicationRecord
+end
