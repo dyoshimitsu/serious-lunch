@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 2018_04_23_095321) do
     t.bigint "followed_account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["followed_account_id", "follower_account_id"], name: "index_account_relationships_on_followed_and_follower", unique: true
+    t.index ["follower_account_id", "followed_account_id"], name: "index_account_relationships_on_follower_and_followed", unique: true
   end
 
   create_table "account_resets", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
