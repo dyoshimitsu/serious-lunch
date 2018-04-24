@@ -55,3 +55,10 @@ Lunch.find_or_create_by(lunch_id: 3) do |record|
     comment: 'good'
   )
 end
+
+AccountRelationship.find_or_create_by(follower_account_id: foo.account_id) do |record|
+  record.assign_attributes(
+    follower_account: foo,
+    followed_account: bar
+  )
+end
