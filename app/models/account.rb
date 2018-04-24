@@ -9,6 +9,7 @@ class Account < ApplicationRecord
            class_name: 'AccountRelationship',
            foreign_key: 'follower_account_id',
            dependent: :destroy
+  has_many :following, through: :active_account_relationships, source: :followed
   has_one :account_activation, dependent: :destroy
   has_one :account_cookie, dependent: :destroy
   has_one :account_reset, dependent: :destroy
