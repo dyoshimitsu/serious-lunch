@@ -5,8 +5,10 @@ class Account < ApplicationRecord
 
   has_secure_password
   has_many :lunches, dependent: :destroy
-  has_many :account_relationships, dependent: :destroy,
-                                   foreign_key: 'follower_account_id'
+  has_many :active_account_relationships,
+           class_name: 'AccountRelationship',
+           foreign_key: 'follower_account_id',
+           dependent: :destroy
   has_one :account_activation, dependent: :destroy
   has_one :account_cookie, dependent: :destroy
   has_one :account_reset, dependent: :destroy
