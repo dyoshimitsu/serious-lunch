@@ -23,7 +23,11 @@ Rails.application.routes.draw do
   resources :lunches, only: [:create, :destroy], param: :lunch_id
 
   get '/users', controller: :accounts, action: :index
-  resources :accounts, only: [:update], param: :account_id
+  resources :accounts, only: [:update], param: :account_id do
+    member do
+      get :following, :followers
+    end
+  end
   resources :accounts, only: [:edit], param: :account_name
   get '/accounts/:account_name', controller: :accounts, action: :show,
                                  to: redirect('/%{account_name}')
