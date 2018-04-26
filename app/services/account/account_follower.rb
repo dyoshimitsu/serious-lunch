@@ -6,13 +6,13 @@ class Account::AccountFollower
   attribute :account, Account, reader: :private
 
   def follow(other_account)
-    account.active_account_relationships.create(
+    account.account_active_relationships.create(
       followed_account_id: other_account.account_id
     )
   end
 
   def unfollow(other_account)
-    account.active_account_relationships.find_by(
+    account.account_active_relationships.find_by(
       followed_account_id: other_account.account_id
     ).destroy
   end
