@@ -13,7 +13,7 @@ class Account < ApplicationRecord
            class_name: 'AccountRelationship',
            foreign_key: 'followed_account_id',
            dependent:   :destroy
-  has_many :following, through: :active_relationships, source: :followed_account
+  has_many :following, through: :account_active_relationships, source: :followed_account
   has_many :followers, through: :account_passive_relationships, source: :follower_account
   has_one :account_activation, dependent: :destroy
   has_one :account_cookie, dependent: :destroy
