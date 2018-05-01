@@ -1,0 +1,30 @@
+<% provide(:title, @title) %>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="account_info">
+      <%= gravatar_for @account %>
+      <h1><%= @account.name %></h1>
+      <span><%= link_to "view my profile", @account %></span>
+      <span><b>Microposts:</b> <%= @account.lunches.count %></span>
+    </section>
+    <section class="stats">
+      <%= render 'shared/stats' %>
+      <% if @accounts.any? %>
+        <div class="account_avatars">
+          <% @accounts.each do |account| %>
+            <%= link_to gravatar_for(account, size: 30), account %>
+          <% end %>
+        </div>
+      <% end %>
+    </section>
+  </aside>
+  <div class="col-md-8">
+    <h3><%= @title %></h3>
+    <% if @accounts.any? %>
+      <ul class="accounts follow">
+        <%= render @accounts %>
+      </ul>
+      <%= will_paginate %>
+    <% end %>
+  </div>
+</div>
