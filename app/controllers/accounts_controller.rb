@@ -59,14 +59,14 @@ class AccountsController < ApplicationController
   def following
     @title = 'Following'
     @account = Account.find_by(account_name: params[:account_name])
-    @account = @account.following.paginate(page: params[:page])
+    @accounts = @account.following.paginate(page: params[:page])
     render 'show_follow'
   end
 
   def followers
     @title = 'Followers'
     @account = Account.find_by(account_name: params[:account_name])
-    @account = @account.followers.paginate(page: params[:page])
+    @accounts = @account.followers.paginate(page: params[:page])
     render 'show_follow'
   end
 
