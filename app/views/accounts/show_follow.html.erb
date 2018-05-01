@@ -3,9 +3,9 @@
   <aside class="col-md-4">
     <section class="account_info">
       <%= gravatar_for @account %>
-      <h1><%= @account.name %></h1>
+      <h1><%= @account.account_name %></h1>
       <span><%= link_to "view my profile", @account %></span>
-      <span><b>Microposts:</b> <%= @account.lunches.count %></span>
+      <span><b>Lunches:</b> <%= @account.lunches.count %></span>
     </section>
     <section class="stats">
       <%= render 'shared/stats' %>
