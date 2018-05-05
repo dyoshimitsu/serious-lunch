@@ -50,7 +50,7 @@ GEM
       io-like (~> 0.3.0)
     arel (9.0.0)
     ast (2.4.0)
-    autoprefixer-rails (8.3.0.1)
+    autoprefixer-rails (8.4.1)
       execjs
     aws-ses (0.6.0)
       builder
@@ -289,7 +289,7 @@ GEM
       coercible (~> 1.0)
       descendants_tracker (~> 0.0, >= 0.0.3)
       equalizer (~> 0.0, >= 0.0.9)
-    web-console (3.6.1)
+    web-console (3.6.2)
       actionview (>= 5.0)
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
