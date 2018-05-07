@@ -1,4 +1,4 @@
 <li>
   <%= gravatar_for account, size: 50 %>
-  <%= link_to account.account_name, account.account_name %>
+  <%= link_to account.account_name, short_account_path(account.account_name) %>
 </li>

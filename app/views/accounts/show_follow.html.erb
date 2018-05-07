@@ -4,7 +4,7 @@
     <section class="account_info">
       <%= gravatar_for @account %>
       <h1><%= @account.account_name %></h1>
-      <span><%= link_to "view my profile", account_path(@account.account_name) %></span>
+      <span><%= link_to "view my profile", short_account_path(@account.account_name) %></span>
       <span><b>Lunches:</b> <%= @account.lunches.count %></span>
     </section>
     <section class="stats">
@@ -12,7 +12,7 @@
       <% if @accounts.any? %>
         <div class="account_avatars">
           <% @accounts.each do |account| %>
-            <%= link_to gravatar_for(account, size: 30), account_path(account.account_name) %>
+            <%= link_to gravatar_for(account, size: 30), short_account_path(account.account_name) %>
           <% end %>
         </div>
       <% end %>
