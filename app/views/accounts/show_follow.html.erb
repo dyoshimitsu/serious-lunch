@@ -4,7 +4,7 @@
     <section class="account_info">
       <%= gravatar_for @account %>
       <h1><%= @account.account_name %></h1>
-      <span><%= link_to "view my profile", @account.account_name %></span>
+      <span><%= link_to "view my profile", account_path(@account.account_name) %></span>
       <span><b>Lunches:</b> <%= @account.lunches.count %></span>
     </section>
     <section class="stats">
