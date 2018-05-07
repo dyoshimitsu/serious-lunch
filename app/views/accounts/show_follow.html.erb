@@ -12,7 +12,7 @@
       <% if @accounts.any? %>
         <div class="account_avatars">
           <% @accounts.each do |account| %>
-            <%= link_to gravatar_for(account, size: 30), account %>
+            <%= link_to gravatar_for(account, size: 30), account_path(account.account_name) %>
           <% end %>
         </div>
       <% end %>
