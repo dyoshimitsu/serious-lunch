@@ -1,4 +1,5 @@
 <%= form_for(current_account.account_active_relationships.find_by(followed_account_id: @account.account_id),
-             html: { method: :delete }) do |f| %>
+             html: { method: :delete },
+             remote: true) do |f| %>
   <%= f.submit "Following", class: "btn btn-primary" %>
 <% end %>
