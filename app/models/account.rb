@@ -40,6 +40,6 @@ class Account < ApplicationRecord
             uniqueness: { case_sensitive: false }
 
   def feed
-    Lunch.where('account_id = ?', account_id)
+    Lunch.where('account_id IN (?) OR account_id = ?', following_ids, account_id)
   end
 end
