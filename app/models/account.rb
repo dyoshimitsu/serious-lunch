@@ -43,6 +43,6 @@ class Account < ApplicationRecord
     following_ids = "SELECT followed_account_id FROM account_relationships
                      WHERE follower_account_id = :account_id"
     Lunch.where("account_id IN (#{following_ids})
-                     OR account_id = :account_id", account_id: account_id)
+                 OR account_id = :account_id", account_id: account_id)
   end
 end
