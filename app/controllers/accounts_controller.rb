@@ -59,15 +59,29 @@ class AccountsController < ApplicationController
   def following
     @title = 'Following'
     @account = Account.find_by(account_name: params[:account_name])
-    @accounts = @account.following.paginate(page: params[:page])
-    render 'show_follow'
+    if @account
+      @accounts = @account.following.paginate(page: params[:page])
+      render 'show_follow'
+    else
+      render file: Rails.root.join('public/404.html'),
+             status: 404,
+             layout: false,
+             content_type: 'text/html'
+    end
   end
 
   def followers
     @title = 'Followers'
     @account = Account.find_by(account_name: params[:account_name])
-    @accounts = @account.followers.paginate(page: params[:page])
-    render 'show_follow'
+    if @account
+      @accounts = @account.followers.paginate(page: params[:page])
+      render 'show_follow'
+    else
+      render file: Rails.root.join('public/404.html'),
+             status: 404,
+             layout: false,
+             content_type: 'text/html'
+    end
   end
 
   private
