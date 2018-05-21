@@ -219,7 +219,10 @@ RSpec.describe AccountsController, :type => :controller do
   end
 
   describe 'GET #following' do
-    before { get :following, params: params }
+    include SessionsHelper
+
+    let(:action) { get :following, params: params }
+    let(:account) { FactoryBot.create :account }
 
     let(:params) do
       {
@@ -227,11 +230,15 @@ RSpec.describe AccountsController, :type => :controller do
       }
     end
 
+    before do
+      log_in(account)
+      action
+    end
+
     context 'when account exists' do
-      let(:account) { FactoryBot.create :account }
       let(:account_name) { account.account_name }
 
-      it { expect(response).to have_http_status(302) }
+      it { expect(response).to have_http_status(200) }
     end
 
     context 'when account not exists' do
@@ -242,7 +249,10 @@ RSpec.describe AccountsController, :type => :controller do
   end
 
   describe 'GET #followers' do
-    before { get :followers, params: params }
+    include SessionsHelper
+
+    let(:action) { get :followers, params: params }
+    let(:account) { FactoryBot.create :account }
 
     let(:params) do
       {
@@ -250,11 +260,15 @@ RSpec.describe AccountsController, :type => :controller do
       }
     end
 
+    before do
+      log_in(account)
+      action
+    end
+
     context 'when account exists' do
-      let(:account) { FactoryBot.create :account }
       let(:account_name) { account.account_name }
 
-      it { expect(response).to have_http_status(302) }
+      it { expect(response).to have_http_status(200) }
     end
 
     context 'when account not exists' do
