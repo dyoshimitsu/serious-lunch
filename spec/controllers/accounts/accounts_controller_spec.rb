@@ -217,4 +217,50 @@ RSpec.describe AccountsController, :type => :controller do
       end
     end
   end
+
+  describe 'GET #following' do
+    before { get :following, params: params }
+
+    let(:params) do
+      {
+        account_name: account_name,
+      }
+    end
+
+    context 'when account exists' do
+      let(:account) { FactoryBot.create :account }
+      let(:account_name) { account.account_name }
+
+      it { expect(response).to have_http_status(302) }
+    end
+
+    context 'when account not exists' do
+      let(:account_name) { 'foo' }
+
+      it { expect(response).to have_http_status(404) }
+    end
+  end
+
+  describe 'GET #followers' do
+    before { get :followers, params: params }
+
+    let(:params) do
+      {
+        account_name: account_name,
+      }
+    end
+
+    context 'when account exists' do
+      let(:account) { FactoryBot.create :account }
+      let(:account_name) { account.account_name }
+
+      it { expect(response).to have_http_status(302) }
+    end
+
+    context 'when account not exists' do
+      let(:account_name) { 'foo' }
+
+      it { expect(response).to have_http_status(404) }
+    end
+  end
 end
