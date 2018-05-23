@@ -70,11 +70,51 @@ RSpec.describe AccountRelationshipsController, :type => :controller do
 
   describe 'DELETE #destroy' do
     let(:action) { delete :destroy, params: params }
+    let(:account_relationship) { FactoryBot.create :account_relationship }
 
     let(:params) do
       {
-        account_relationship_id: account_relationship_id,
+        account_relationship_id: account_relationship.account_relationship_id,
       }
+    end
+
+    context 'when not logged in' do
+      before { action }
+
+      it 'should redirect to login' do
+        expect(response).to have_http_status(302)
+        expect(response).to redirect_to(login_url)
+      end
+    end
+
+    context 'when logged in' do
+      include SessionsHelper
+
+      let(:account) { FactoryBot.create :account }
+      before do
+        log_in(account)
+        action
+      end
+
+      context 'when parameter is valid' do
+
+        it 'delete account_relationship' do
+        end
+      end
+
+      context 'when parameter is invalid' do
+        context 'when parameter is does not exist' do
+
+          it 'not delete account_relationship' do
+          end
+
+          context 'when it is not relationship to login account' do
+
+            it 'not delete account_relationship' do
+            end
+          end
+        end
+      end
     end
   end
 end
