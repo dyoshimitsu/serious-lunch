@@ -111,8 +111,8 @@ RSpec.describe AccountRelationshipsController, :type => :controller do
         it 'delete account_relationship' do
           expect(response).to have_http_status(302)
           expect(response).to redirect_to(
-                                short_account_url(followed_account.account_name)
-                              )
+            short_account_url(followed_account.account_name)
+          )
           expect(account.following.count).to eq(0)
           expect(followed_account.followers.count).to eq(0)
         end
