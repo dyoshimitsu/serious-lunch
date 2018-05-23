@@ -2,7 +2,7 @@
 
 class CreateAccountRelationships < ActiveRecord::Migration[5.2]
   def change
-    create_table :account_relationships do |t|
+    create_table :account_relationships, :primary_key => :account_relationship_id do |t|
       t.bigint :follower_account_id, null: false
       t.bigint :followed_account_id, null: false
 
