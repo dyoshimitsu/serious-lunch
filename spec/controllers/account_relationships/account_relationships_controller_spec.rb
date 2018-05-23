@@ -38,7 +38,9 @@ RSpec.describe AccountRelationshipsController, :type => :controller do
 
         it 'create new account_relationship' do
           expect(response).to have_http_status(302)
-          expect(response).to redirect_to(short_account_url(followed_account.account_name))
+          expect(response).to redirect_to(
+            short_account_url(followed_account.account_name)
+          )
           expect(account.following.count).to eq(1)
           expect(followed_account.followers.count).to eq(1)
         end
