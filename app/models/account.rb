@@ -5,6 +5,16 @@ class Account < ApplicationRecord
 
   has_secure_password
   has_many :lunches, dependent: :destroy
+  has_many :account_active_relationships,
+           class_name: 'AccountRelationship',
+           foreign_key: 'follower_account_id',
+           dependent: :destroy
+  has_many :account_passive_relationships,
+           class_name: 'AccountRelationship',
+           foreign_key: 'followed_account_id',
+           dependent:   :destroy
+  has_many :following, through: :account_active_relationships, source: :followed_account
+  has_many :followers, through: :account_passive_relationships, source: :follower_account
   has_one :account_activation, dependent: :destroy
   has_one :account_cookie, dependent: :destroy
   has_one :account_reset, dependent: :destroy
@@ -30,6 +40,9 @@ class Account < ApplicationRecord
             uniqueness: { case_sensitive: false }
 
   def feed
-    Lunch.where('account_id = ?', account_id)
+    following_ids = "SELECT followed_account_id FROM account_relationships
+                     WHERE follower_account_id = :account_id"
+    Lunch.where("account_id IN (#{following_ids})
+                 OR account_id = :account_id", account_id: account_id)
   end
 end

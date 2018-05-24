@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AccountsController < ApplicationController
-  before_action :logged_in_account, only: [:index, :edit, :update]
+  before_action :logged_in_account, only: [:index, :edit, :update, :following, :followers]
 
   def new
     @account = Account.new
@@ -54,6 +54,34 @@ class AccountsController < ApplicationController
   def edit
     @account = Account.find_by(account_name: params[:account_name])
     redirect_to(root_url) unless @account == current_account
+  end
+
+  def following
+    @title = 'Following'
+    @account = Account.find_by(account_name: params[:account_name])
+    if @account
+      @accounts = @account.following.paginate(page: params[:page])
+      render 'show_follow'
+    else
+      render file: Rails.root.join('public/404.html'),
+             status: 404,
+             layout: false,
+             content_type: 'text/html'
+    end
+  end
+
+  def followers
+    @title = 'Followers'
+    @account = Account.find_by(account_name: params[:account_name])
+    if @account
+      @accounts = @account.followers.paginate(page: params[:page])
+      render 'show_follow'
+    else
+      render file: Rails.root.join('public/404.html'),
+             status: 404,
+             layout: false,
+             content_type: 'text/html'
+    end
   end
 
   private

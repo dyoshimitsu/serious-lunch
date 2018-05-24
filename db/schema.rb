@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_03_24_100549) do
+ActiveRecord::Schema.define(version: 2018_04_23_095321) do
 
   create_table "account_activations", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.bigint "account_id", null: false
@@ -28,6 +28,15 @@ ActiveRecord::Schema.define(version: 2018_03_24_100549) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_account_cookies_on_account_id", unique: true
+  end
+
+  create_table "account_relationships", primary_key: "account_relationship_id", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.bigint "follower_account_id", null: false
+    t.bigint "followed_account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["followed_account_id", "follower_account_id"], name: "index_account_relationships_on_followed_and_follower", unique: true
+    t.index ["follower_account_id", "followed_account_id"], name: "index_account_relationships_on_follower_and_followed", unique: true
   end
 
   create_table "account_resets", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|

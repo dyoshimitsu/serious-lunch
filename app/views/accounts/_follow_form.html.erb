@@ -1,0 +1,9 @@
+<% unless current_account?(@account) %>
+  <div id="follow_form">
+    <% if Account::AccountFollower.new(account: current_account).following?(@account) %>
+      <%= render 'unfollow' %>
+    <% else %>
+      <%= render 'follow' %>
+    <% end %>
+  </div>
+<% end %>
