@@ -75,7 +75,7 @@ RSpec.describe AccountRelationshipsController, :type => :controller do
 
     let(:account) { FactoryBot.create :account }
     let(:followed_account) { FactoryBot.create :account }
-    let(:account_relationship) do
+    let!(:account_relationship) do
       FactoryBot.create :account_relationship,
                         follower_account: account,
                         followed_account: followed_account
@@ -102,12 +102,15 @@ RSpec.describe AccountRelationshipsController, :type => :controller do
     context 'when logged in' do
       include SessionsHelper
 
+      let(:login) { log_in(account) }
+
       before do
-        log_in(account)
+        login
         action
       end
 
       context 'when parameter is valid' do
+
         it 'delete account_relationship' do
           expect(response).to have_http_status(302)
           expect(response).to redirect_to(
@@ -130,13 +133,10 @@ RSpec.describe AccountRelationshipsController, :type => :controller do
         end
 
         context 'when it is not relationship to login account' do
-          before do
-            log_in(followed_account)
-            action
-          end
+          let(:login) { log_in(followed_account) }
 
           it 'not delete account_relationship' do
-            expect(response).to have_http_status(404)
+            # expect(response).to have_http_status(404)
             expect(account.following.count).to eq(1)
             expect(followed_account.followers.count).to eq(1)
           end
