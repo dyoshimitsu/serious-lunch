@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Style/FormatStringToken
-
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resource :hello, only: [:show], controller: :static_pages, action: :hello
@@ -35,5 +33,3 @@ Rails.application.routes.draw do
                                  to: redirect('/%{account_name}')
   get '/:account_name', controller: :accounts, action: :show, as: :short_account
 end
-
-# rubocop:enable Style/FormatStringToken
