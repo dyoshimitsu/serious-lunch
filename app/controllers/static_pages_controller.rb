@@ -8,6 +8,7 @@ class StaticPagesController < ApplicationController
 
   def home
     return unless logged_in?
+
     @lunch = current_account.lunches.build
     @feed_items = current_account.feed
                                  .order(created_at: :desc)
