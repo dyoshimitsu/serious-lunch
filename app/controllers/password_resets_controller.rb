@@ -56,6 +56,7 @@ class PasswordResetsController < ApplicationController
     return unless Account::AccountPasswordResetter.new(
       account: @account
     ).password_reset_expired?
+
     flash[:danger] = 'Password reset has expired.'
     redirect_to new_password_reset_url
   end

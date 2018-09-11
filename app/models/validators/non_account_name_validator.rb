@@ -92,6 +92,7 @@ class Validators::NonAccountNameValidator < ActiveModel::Validator
 
   def validate(record)
     return unless NON_ACCOUNT_NAME.include?(record.account_name.downcase)
+
     record.errors[:base] << 'That name is reserved and can not be used'
   end
 end
