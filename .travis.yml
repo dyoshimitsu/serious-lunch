@@ -4,23 +4,26 @@ rvm:
 sudo: required
 dist: trusty
 services:
-  - docker
+- docker
 env:
   global:
   - RAILS_ENV: test
 cache: bundler
-bundler_args: --without production --deployment --path=vendor/bundle
+bundler_args: "--without production --deployment --path=vendor/bundle"
 before_install:
-  - gem update --system
-  - gem --version
-  - gem install bundler
-  - sudo service mysql stop
-    && $TRAVIS_BUILD_DIR/scripts/travis_start_containers.sh
-    && $TRAVIS_BUILD_DIR/scripts/travis_wait_containers.sh mysql
-    && ln -s /var/run/mysqld/mysqld.sock "${DATABASE_SOCKET:-/tmp/mysql.sock}"
+- gem update --system
+- gem --version
+- gem install bundler
+- sudo service mysql stop && $TRAVIS_BUILD_DIR/scripts/travis_start_containers.sh
+  && $TRAVIS_BUILD_DIR/scripts/travis_wait_containers.sh mysql && ln -s /var/run/mysqld/mysqld.sock
+  "${DATABASE_SOCKET:-/tmp/mysql.sock}"
 script:
-  - bin/rails db:create db:migrate RAILS_ENV=test
-  - bundle exec rubocop
-  - bundle exec rspec
+- bin/rails db:create db:migrate RAILS_ENV=test
+- bundle exec rubocop
+- bundle exec rspec
 after_success:
-  - $TRAVIS_BUILD_DIR/scripts/travis_production_deploy.sh
+- "$TRAVIS_BUILD_DIR/scripts/travis_production_deploy.sh"
+notifications:
+  email: false
+  slack:
+    secure: NMZsW0J+74peGv/gnr5j7uWup+hnI5qU7U3BFXm7WwUXXo2sClYe7SM0vlPuyjwI2d0iol9CGgBZC1ASzhZ9UqFBi4+90iMwwETMOFv7LlCN0zjpOWlAFDJgA8e8AsRuCBMiOHK/HxIRJa9WbcbYlDeob+HQc7og0NmH8SlhchN1bfbJA8jNRtshyYqM1tk72qzbwEU3GIEIxe6VWfVkguft+FSKM9AyUAGkzQcvjEqqgbHiya6p3yszgVZYSlUf1hLpODo4Bx5gfu5OrYTN8LLHjofOZtPYX3EkigFtyhLPWLHy3akm+2XArCLiXJzy3gNVkRgYsFkFO4HiD+k4FGjAPjQO/f8FXlzCHAJ8rNkZDUbUhJnch1nAU6clihEqFPg2tl3xrOGiQK6V/bHoCX4BLXmnaIcE/niZSaPE5uNvBXMV9UoAgyTNeAw1SSVSoigdoUEMmXrzFo9plXwG7TZbbvg0NZYPI3Y1ykJC7IbwP/VxlfrIgzJO3PEWUY9hf8NPFHd0cOzsYzEgq7igtLmzi/BLnwMx4xewcw4BC4gIy6YL23zGxqzX5XPxNAO5DdSx4bn/G9D7me0dz2ZmP0br1rz//ZX974VTXO7PaLz2L1AbD6Qhn9iRyZADyH5bkNs3o0pjTWIyumtvTLAEgH9Q4S4kEXO8seUzofIuJuc=
