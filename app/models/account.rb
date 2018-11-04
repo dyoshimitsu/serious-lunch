@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Account < ApplicationRecord
-  VALID_EMAIL_ADDRESS_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  VALID_EMAIL_ADDRESS_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
 
   has_secure_password
   has_many :lunches, dependent: :destroy
@@ -12,7 +12,7 @@ class Account < ApplicationRecord
   has_many :account_passive_relationships,
            class_name: 'AccountRelationship',
            foreign_key: 'followed_account_id',
-           dependent:   :destroy
+           dependent: :destroy
   has_many :following, through: :account_active_relationships, source: :followed_account
   has_many :followers, through: :account_passive_relationships, source: :follower_account
   has_one :account_activation, dependent: :destroy
