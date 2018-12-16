@@ -334,7 +334,7 @@ DEPENDENCIES
   mysql2 (>= 0.3.18, < 0.5)
   onkcop
   puma (~> 3.11)
-  rails (~> 5.2.1.1)
+  rails (~> 5.2.2)
   rspec-rails
   rubocop
   sassc-rails (~> 1.0)
