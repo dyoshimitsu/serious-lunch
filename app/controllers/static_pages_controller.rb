@@ -13,5 +13,6 @@ class StaticPagesController < ApplicationController
     @feed_items = current_account.feed
                                  .order(created_at: :desc)
                                  .paginate(page: params[:page])
+                                 .reload
   end
 end

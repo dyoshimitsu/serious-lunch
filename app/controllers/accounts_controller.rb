@@ -60,7 +60,7 @@ class AccountsController < ApplicationController
     @title = 'Following'
     @account = Account.find_by(account_name: params[:account_name])
     if @account
-      @accounts = @account.following.paginate(page: params[:page])
+      @accounts = @account.following.paginate(page: params[:page]).reload
       render 'show_follow'
     else
       render file: Rails.root.join('public/404.html'),
@@ -74,7 +74,7 @@ class AccountsController < ApplicationController
     @title = 'Followers'
     @account = Account.find_by(account_name: params[:account_name])
     if @account
-      @accounts = @account.followers.paginate(page: params[:page])
+      @accounts = @account.followers.paginate(page: params[:page]).reload
       render 'show_follow'
     else
       render file: Rails.root.join('public/404.html'),
