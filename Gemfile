@@ -61,6 +61,7 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'onkcop', require: false
   gem 'rubocop'
+  gem 'rubocop-performance'
 end
 
 group :development do
