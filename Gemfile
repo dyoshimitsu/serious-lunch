@@ -80,5 +80,5 @@ end
 
 group :test do
   gem 'factory_bot_rails'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 4.0.0.beta2'
 end
