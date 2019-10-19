@@ -336,7 +336,7 @@ DEPENDENCIES
   onkcop
   puma (~> 3.11)
   rails (~> 6.0.0)
-  rspec-rails (~> 4.0.0.beta2)
+  rspec-rails (~> 4.0.0.beta3)
   rubocop
   rubocop-performance
   sassc-rails (>= 2.0.0)
