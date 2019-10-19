@@ -30,6 +30,6 @@ Rails.application.routes.draw do
   resources :account_relationships, only: [:create, :destroy],
                                     param: :account_relationship_id
   get '/accounts/:account_name', controller: :accounts, action: :show,
-                                 to: redirect('/%{account_name}')
+                                 to: redirect('/%<account_name>s')
   get '/:account_name', controller: :accounts, action: :show, as: :short_account
 end
