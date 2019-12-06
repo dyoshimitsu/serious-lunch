@@ -60,9 +60,6 @@ Layout/SpaceInLambdaLiteral:
 Style/Lambda:
   EnforcedStyle: literal
 
-StabbyLambdaParentheses:
-  Enabled: false
-
 Layout/SpaceBeforeBlockBraces:
   Enabled: false
 
