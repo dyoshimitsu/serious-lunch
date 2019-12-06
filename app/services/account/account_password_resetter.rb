@@ -29,6 +29,6 @@ class Account::AccountPasswordResetter
   end
 
   def password_reset_expired?
-    (account&.account_reset&.updated_at) < 30.minutes.ago
+    account&.account_reset&.updated_at < 30.minutes.ago
   end
 end
