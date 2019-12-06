@@ -185,7 +185,7 @@ GEM
     parser (2.6.5.0)
       ast (~> 2.4.0)
     public_suffix (4.0.1)
-    puma (3.12.1)
+    puma (3.12.2)
     rack (2.0.7)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -334,7 +334,7 @@ DEPENDENCIES
   momentjs-rails (>= 2.9.0)
   mysql2 (>= 0.3.18, < 0.5)
   onkcop
-  puma (~> 3.11)
+  puma (~> 3.12)
   rails (~> 6.0.0)
   rspec-rails (~> 4.0.0.beta3)
   rubocop
