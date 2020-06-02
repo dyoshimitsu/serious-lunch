@@ -46,6 +46,7 @@ gem 'will_paginate', '3.1.6'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 gem 'momentjs-rails', '>= 2.9.0'
 
+gem 'aws-sdk'
 gem 'aws-ses', '~> 0.6'
 
 gem 'virtus'
