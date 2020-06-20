@@ -20,8 +20,8 @@ script:
 - bin/rails db:create db:migrate RAILS_ENV=test
 - bundle exec rubocop
 - bundle exec rspec
-after_success:
-- "$TRAVIS_BUILD_DIR/scripts/travis_production_deploy.sh"
+# after_success:
+# - "$TRAVIS_BUILD_DIR/scripts/travis_production_deploy.sh"
 notifications:
   email: false
   slack:
